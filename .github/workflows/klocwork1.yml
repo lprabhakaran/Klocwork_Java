@@ -43,7 +43,7 @@ jobs:
         with:
           cloudbees-url: ${{ vars.CLOUDBEES_QA_API_URL }}
           # Insert the runner's public IP dynamically into the KLOCWORK_URL
-          url: "http://${{ env.RUNNER_IP }}:port"  # replace 'port' with your actual Klocwork server port
+          url: "http://${{ env.RUNNER_IP }}:8080"  # replace 'port' with your actual Klocwork server port
           token: ${{ secrets.NEW_KLOCWORK_APP_TOKEN }}
           license-host: ${{ vars.KLOCWORK_LICENSE }}
           username: ${{ vars.KLOCWORK_USERNAME }}
