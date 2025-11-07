@@ -4,9 +4,12 @@ on:
   push:
     branches:
     - main
+permissions:
+      id-token: write
+      contents: read 
 
 jobs:
-  blackduck-codescan:
+  klocwork-codescan:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository code
