@@ -9,23 +9,7 @@ permissions:
   id-token: write      # needed for OIDC token access
   contents: read       # needed for actions/checkout
 
-env:
-  # Labels for GitHub Large Runner IP ranges
-  GITHUB_LARGE_RUNNER_RANGES: |
-    {
-      "20.120.206.64/29": {
-        "name": "github large runners | terraform"
-      },
-      "4.236.226.144/29": {
-        "name": "github large runners | terraform"
-      },
-      "4.157.3.96/29": {
-        "name": "github large runners | terraform"
-      },
-      "51.8.128.32/29": {
-        "name": "github large runners | terraform"
-      }
-    }
+
 
 jobs:
   klocwork-codescan:
@@ -48,11 +32,6 @@ jobs:
           echo "Step id is ${{ steps.internal.id }}"
           curl checkip.amazonaws.com
 
-      # Optional: Print defined runner IP label info
-      - name: Print Runner Labels
-        run: |
-          echo "Configured GitHub Large Runner IP Ranges:"
-          echo '${{ env.GITHUB_LARGE_RUNNER_RANGES }}' | jq '.'
 
     #  - name: Get runner public IP
     #    id: get_ip
