@@ -49,4 +49,5 @@ jobs:
           username: ${{ vars.KLOCWORK_USERNAME }}
           build-directory: /app
           build-tool: ${{ vars.KLOCWORK_BUILD_TOOL }}
-          project-name: test-new-project
+          project-name: test-new-project-1
+          enable-agent-scan: true
