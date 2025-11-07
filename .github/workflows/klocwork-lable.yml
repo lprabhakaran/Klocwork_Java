@@ -1,0 +1,77 @@
+name: Perforce Klocwork scan 
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write      # needed for OIDC token access
+  contents: read       # needed for actions/checkout
+
+env:
+  # Labels for GitHub Large Runner IP ranges
+  GITHUB_LARGE_RUNNER_RANGES: |
+    {
+      "20.120.206.64/29": {
+        "name": "github large runners | terraform"
+      },
+      "4.236.226.144/29": {
+        "name": "github large runners | terraform"
+      },
+      "4.157.3.96/29": {
+        "name": "github large runners | terraform"
+      },
+      "51.8.128.32/29": {
+        "name": "github large runners | terraform"
+      }
+    }
+
+jobs:
+  klocwork-codescan:
+    runs-on:
+      group: large-runners
+      labels: ubuntu-latest
+    steps:
+      
+         
+      - name: Checkout repository code
+        uses: actions/checkout@v3
+
+      - name: Print GITHUB_RUN_ID
+        shell: bash
+        run: |
+          echo "Ref name is $GITHUB_RUN_ID"
+          echo "Source is ${{ github.server_url }}/${{ github.repository }}"
+          echo "Subject is $GITHUB_WORKFLOW_REF|${{ github.run_id }}|${{ github.run_attempt }}|${{ github.run_number }}"
+          echo "Job is $GITHUB_JOB"
+          echo "Step id is ${{ steps.internal.id }}"
+          curl checkip.amazonaws.com
+
+      # Optional: Print defined runner IP label info
+      - name: Print Runner Labels
+        run: |
+          echo "Configured GitHub Large Runner IP Ranges:"
+          echo '${{ env.GITHUB_LARGE_RUNNER_RANGES }}' | jq '.'
+
+    #  - name: Get runner public IP
+    #    id: get_ip
+    #    shell: bash
+    #    run: |
+    #      RUNNER_IP=$(curl -s icanhazip.com)
+    #      echo "Runner's Public IP: $RUNNER_IP"
+     #     echo "Waiting 2 minutes for SG update..."
+     #     sleep 120
+     #     echo "RUNNER_IP=$RUNNER_IP" >> $GITHUB_ENV
+
+      - name: Klocwork scan
+        uses: cloudbees-io-gha/perforce-klocwork-sast-publish@v1
+        with:
+          cloudbees-url: ${{ vars.CLOUDBEES_QA_API_URL }}
+          # Insert the runner's public IP dynamically into the KLOCWORK_URL
+          url: ${{ vars.KLOCWORK_URL }}  # replace 'port' with your actual Klocwork server port
+          token: ${{ secrets.NEW_KLOCWORK_APP_TOKEN }}
+          license-host: ${{ vars.KLOCWORK_LICENSE }}
+          username: ${{ vars.KLOCWORK_USERNAME }}
+          build-directory: /app
+          build-tool: ${{ vars.KLOCWORK_BUILD_TOOL }}
