@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Test server connectivity
         run: |
-         curl -v ${{ inputs.url }} || echo "Server not reachable"
+         curl -v ${{ vars.KLOCWORK_URL }} || echo "Server not reachable"
          
       - name: Checkout repository code
         uses: actions/checkout@v3
