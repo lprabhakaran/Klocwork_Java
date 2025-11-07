@@ -14,8 +14,8 @@ permissions:
 jobs:
   klocwork-codescan:
     runs-on:
-      group: large-runners
-      labels: ubuntu-latest
+       ["ubuntu-latest", "large"]  
+    
     steps:
       
          
