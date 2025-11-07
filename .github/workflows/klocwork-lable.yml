@@ -13,15 +13,15 @@ env:
   # Map public IPs to runner labels
   RUNNER_IP_LABELS: |
     {
-      "20.120.206.64/29": { "name": "github large runners | terraform" },
-      "4.236.226.144/29": { "name": "github large runners | terraform" },
-      "4.157.3.96/29": { "name": "github large runners | terraform" },
-      "51.8.128.32/29": { "name": "github large runners | terraform" }
+      "20.120.206.64/29": { "name": "self-hosted" },
+      "4.236.226.144/29": { "name": "self-hosted" },
+      "4.157.3.96/29": { "name": "self-hosted" },
+      "51.8.128.32/29": { "name": "self-hosted" }
     }
 
 jobs:
   klocwork-codescan:
-    runs-on: [self-hosted, large]  # Requires a self-hosted runner labeled 'large'
+    runs-on: [self-hosted]  # Requires a self-hosted runner labeled 'large'
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v3
