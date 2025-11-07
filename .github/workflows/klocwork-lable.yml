@@ -21,7 +21,10 @@ env:
 
 jobs:
   klocwork-codescan:
-    runs-on: [self-hosted]  # Requires a self-hosted runner labeled 'large'
+    runs-on:
+     group: large-runners
+     labels: ubuntu-latest  
+    
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v3
