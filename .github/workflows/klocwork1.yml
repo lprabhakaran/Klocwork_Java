@@ -29,6 +29,8 @@ jobs:
       - name: Klocwork scan
         uses: cloudbees-io-gha/perforce-klocwork-sast-publish@v1
         with:
+          cloudbees_pat_token: ${{ secrets.CLOUDBEES_QA_PAT }}
+          cloudbees_api_url: ${{ vars.CLOUDBEES_QA_API_URL }}
           url: ${{ vars.KLOCWORK_URL }}
           token: ${{ secrets.NEW_KLOCWORK_APP_TOKEN }}
           license-host: ${{ vars.KLOCWORK_LICENSE }}
