@@ -49,3 +49,4 @@ jobs:
           username: ${{ vars.KLOCWORK_USERNAME }}
           build-directory: /app
           build-tool: ${{ vars.KLOCWORK_BUILD_TOOL }}
+          project-name: test-new-project
