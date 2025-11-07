@@ -47,4 +47,5 @@ jobs:
           token: ${{ secrets.NEW_KLOCWORK_APP_TOKEN }}
           license-host: ${{ vars.KLOCWORK_LICENSE }}
           username: ${{ vars.KLOCWORK_USERNAME }}
+          build-directory: /app
           build-tool: ${{ vars.KLOCWORK_BUILD_TOOL }}
