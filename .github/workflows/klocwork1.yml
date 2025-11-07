@@ -13,9 +13,7 @@ jobs:
   klocwork-codescan:
     runs-on: ubuntu-latest
     steps:
-      - name: Test server connectivity
-        run: |
-          curl -v ${{ vars.KLOCWORK_URL }} || echo "Server not reachable"
+      
          
       - name: Checkout repository code
         uses: actions/checkout@v3
