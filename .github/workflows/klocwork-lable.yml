@@ -5,54 +5,56 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write      # needed for OIDC token access
+  contents: read       # needed for actions/checkout
+
 env:
-  # Allowed GitHub Large Runner IP ranges
-  GITHUB_LARGE_RUNNER_RANGES: |
-    [
-      "20.120.206.64/29",
-      "4.236.226.144/29",
-      "4.157.3.96/29",
-      "51.8.128.32/29"
-    ]
+  # Map public IPs to runner labels
+  RUNNER_IP_LABELS: |
+    {
+      "20.120.206.64/29": { "name": "github large runners | terraform" },
+      "4.236.226.144/29": { "name": "github large runners | terraform" },
+      "4.157.3.96/29": { "name": "github large runners | terraform" },
+      "51.8.128.32/29": { "name": "github large runners | terraform" }
+    }
 
 jobs:
   klocwork-codescan:
-    runs-on: ubuntu-latest
-
+    runs-on: [self-hosted, large]  # Requires a self-hosted runner labeled 'large'
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v3
 
-      - name: Detect runner public IP
+      - name: Print GitHub metadata
+        shell: bash
+        run: |
+          echo "Run ID: $GITHUB_RUN_ID"
+          echo "Repository: ${{ github.repository }}"
+          echo "Workflow ref: $GITHUB_WORKFLOW_REF"
+          echo "Job: $GITHUB_JOB"
+
+      - name: Get runner public IP
         id: get_ip
+        shell: bash
         run: |
           RUNNER_IP=$(curl -s https://checkip.amazonaws.com)
-          echo "Runner public IP: $RUNNER_IP"
           echo "RUNNER_IP=$RUNNER_IP" >> $GITHUB_ENV
+          echo "Runner public IP: $RUNNER_IP"
 
-      - name: Check IP is allowed
-        run: |
-          echo "Checking if $RUNNER_IP is in allowed ranges..."
-          ALLOWED=$(echo '${{ env.GITHUB_LARGE_RUNNER_RANGES }}' | jq -r '.[]')
-          IN_RANGE=false
-          for range in $ALLOWED; do
-            if ipcalc -c $RUNNER_IP $range > /dev/null 2>&1; then
-              IN_RANGE=true
-            fi
-          done
-          if [ "$IN_RANGE" = false ]; then
-            echo "Runner IP $RUNNER_IP is not in allowed ranges. Failing job."
-            exit 1
-          else
-            echo "Runner IP $RUNNER_IP is allowed."
-          fi
+      - name: Map IP to label
+        id: map_label
         shell: bash
+        run: |
+          LABEL=$(echo '${{ env.RUNNER_IP_LABELS }}' | jq -r --arg ip "$RUNNER_IP" '.[$ip].name // "unknown"')
+          echo "RUNNER_LABEL=$LABEL" >> $GITHUB_ENV
+          echo "Runner label mapped: $LABEL"
 
       - name: Klocwork scan
         uses: cloudbees-io-gha/perforce-klocwork-sast-publish@v1
         with:
           cloudbees-url: ${{ vars.CLOUDBEES_QA_API_URL }}
-          url: ${{ vars.KLOCWORK_URL }}
+          url: ${{ vars.KLOCWORK_URL }}        # Replace with your Klocwork server URL
           token: ${{ secrets.NEW_KLOCWORK_APP_TOKEN }}
           license-host: ${{ vars.KLOCWORK_LICENSE }}
           username: ${{ vars.KLOCWORK_USERNAME }}
