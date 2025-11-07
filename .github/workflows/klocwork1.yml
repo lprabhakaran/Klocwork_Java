@@ -1,0 +1,32 @@
+name: Klocwork scan
+
+on:
+  push:
+    branches:
+    - mains
+
+jobs:
+  blackduck-codescan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v3
+
+      - name: Print GITHUB_RUN_ID
+        shell: bash
+        run: |
+          echo "Ref name is $GITHUB_RUN_ID"
+          echo "Source is ${{ github.server_url }}/${{ github.repository }}"
+          echo "Subject is $GITHUB_WORKFLOW_REF|${{ github.run_id }}|${{ github.run_attempt }}|${{ github.run_number }}"
+          echo "Job is $GITHUB_JOB"
+          echo "Step id is ${{ steps.internal.id }}"
+          curl checkip.amazonaws.com
+
+      - name: Klocwork scan
+        uses: cloudbees-io-gha/perforce-klocwork-sast-publish@v1
+        with:
+          url: ${{ vars.KLOCWORK_URL }}
+          token: ${{ secrets.NEW_KLOCWORK_APP_TOKEN }}
+          license-host: ${{ vars.KLOCWORK_LICENSE }}
+          username: ${{ vars.KLOCWORK_USERNAME }}
+          build-tool:  ${{ vars.KLOCWORK_BUILD_TOOL }}
