@@ -3,7 +3,7 @@ name: Klocwork scan
 on:
   push:
     branches:
-    - mains
+    - main
 
 jobs:
   blackduck-codescan:
