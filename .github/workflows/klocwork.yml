@@ -1,4 +1,4 @@
-name: Blackduck scan
+name: Klocwork scan
 
 on:
   push:
