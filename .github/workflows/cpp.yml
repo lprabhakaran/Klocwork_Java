@@ -1,4 +1,4 @@
-name: Perforce Klocwork scan cpp
+name: Perforce Klocwork scan cpp  
 
 on:
   push:
@@ -12,15 +12,15 @@ permissions:
 jobs:
   klocwork-codescan:
     runs-on: self-hosted
-
     steps:
+
       # Checkout code
       - name: Checkout repository code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-
-      # Print GITHUB_RUN_ID and other info
+          fetch-depth: 0 
+       
+      # Print run info
       - name: Print run info
         shell: bash
         run: |
@@ -28,6 +28,7 @@ jobs:
           echo "Source is ${{ github.server_url }}/${{ github.repository }}"
           echo "Subject is $GITHUB_WORKFLOW_REF|${{ github.run_id }}|${{ github.run_attempt }}|${{ github.run_number }}"
           echo "Job is $GITHUB_JOB"
+          echo "Step id is ${{ steps.internal.id }}"
           curl checkip.amazonaws.com
 
       # Run Klocwork scan
@@ -42,20 +43,4 @@ jobs:
           project-name: test-cmake-gha
           build-directory: ctest
           build-tool: cmake
-          build-options: make -j14
-          pre-cmd: |
-            # Set OpenSSL paths so CMake can find headers and libraries
-            export OPENSSL_ROOT_DIR=/usr
-            export OPENSSL_INCLUDE_DIR=/usr/include
-            export OPENSSL_LIBRARIES=/usr/lib/x86_64-linux-gnu
-            # Verify OpenSSL is present (for debugging)
-            if [ -d "$OPENSSL_INCLUDE_DIR/openssl" ]; then
-              echo "OpenSSL headers found"
-            else
-              echo "Warning: OpenSSL headers not found!"
-            fi
-            if [ -f "$OPENSSL_LIBRARIES/libssl.so" ] || [ -f "$OPENSSL_LIBRARIES/libssl.a" ]; then
-              echo "OpenSSL libraries found"
-            else
-              echo "Warning: OpenSSL libraries not found!"
-            fi
+          build-options: make -j14 -DCMAKE_USE_OPENSSL=OFF
