@@ -43,12 +43,19 @@ jobs:
           build-directory: ctest
           build-tool: cmake
           build-options: make -j14
-          # 👇 Add this line to ensure OpenSSL dev tools are present in the container
           pre-cmd: |
-            if command -v apt-get >/dev/null 2>&1; then
-              apt-get update && apt-get install -y libssl-dev
-            elif command -v yum >/dev/null 2>&1; then
-              yum install -y openssl-devel
+            # Set OpenSSL paths so CMake can find headers and libraries
+            export OPENSSL_ROOT_DIR=/usr
+            export OPENSSL_INCLUDE_DIR=/usr/include
+            export OPENSSL_LIBRARIES=/usr/lib/x86_64-linux-gnu
+            # Verify OpenSSL is present (for debugging)
+            if [ -d "$OPENSSL_INCLUDE_DIR/openssl" ]; then
+              echo "OpenSSL headers found"
             else
-              echo "Warning: Package manager not found; skipping OpenSSL install"
+              echo "Warning: OpenSSL headers not found!"
+            fi
+            if [ -f "$OPENSSL_LIBRARIES/libssl.so" ] || [ -f "$OPENSSL_LIBRARIES/libssl.a" ]; then
+              echo "OpenSSL libraries found"
+            else
+              echo "Warning: OpenSSL libraries not found!"
             fi
