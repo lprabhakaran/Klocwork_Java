@@ -16,9 +16,8 @@ jobs:
 
       #Checkout code
       - name: Checkout repository code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v4
+       
 
      
       #  Print GITHUB_RUN_ID and other info
