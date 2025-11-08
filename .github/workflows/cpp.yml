@@ -33,9 +33,8 @@ jobs:
         run: |
           export OPENSSL_ROOT_DIR=$(brew --prefix openssl@3)
           export PKG_CONFIG_PATH=$OPENSSL_ROOT_DIR/lib/pkgconfig:$PKG_CONFIG_PATH
-          mkdir -p ctest
-          cd ctest
-          cmake -DCMAKE_USE_OPENSSL=ON -DOPENSSL_ROOT_DIR=$OPENSSL_ROOT_DIR .
+          
+          
 
       # Run Klocwork scan (kwinject wraps make)
       - name: Klocwork scan
@@ -49,4 +48,4 @@ jobs:
           project-name: test-cmake-gha
           build-directory: ctest
           build-tool: make
-          build-options: make -j14
+          build-options: "cmake -DCMAKE_USE_OPENSSL=ON -DOPENSSL_ROOT_DIR=$OPENSSL_ROOT_DIR . && make -j14 "
