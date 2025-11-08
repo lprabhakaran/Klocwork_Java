@@ -1,4 +1,4 @@
-name: Perforce Klocwork scan cpp
+name: Perforce Klocwork scan cpp  
 
 on:
   push:
@@ -14,13 +14,11 @@ jobs:
     runs-on: self-hosted
     steps:
 
-      # 1️⃣ Checkout code
+      # Checkout code
       - name: Checkout repository code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      # 2️⃣ Print run info
+      # Print run info
       - name: Print run info
         shell: bash
         run: |
@@ -28,29 +26,19 @@ jobs:
           echo "Source is ${{ github.server_url }}/${{ github.repository }}"
           echo "Subject is $GITHUB_WORKFLOW_REF|${{ github.run_id }}|${{ github.run_attempt }}|${{ github.run_number }}"
           echo "Job is $GITHUB_JOB"
+          echo "Step id is ${{ steps.internal.id }}"
           curl checkip.amazonaws.com
 
-      # 3️⃣ Install build dependencies on macOS (ARM-native)
-      - name: Install build dependencies on macOS
+      # Setup OpenSSL environment for CMake
+      - name: Set OpenSSL environment
         shell: bash
         run: |
-          echo "Updating Homebrew (ARM mode)..."
-          arch -arm64 brew update
+          export OPENSSL_ROOT_DIR=$(brew --prefix openssl@3)
+          export PKG_CONFIG_PATH=$OPENSSL_ROOT_DIR/lib/pkgconfig:$PKG_CONFIG_PATH
+          echo "OPENSSL_ROOT_DIR=$OPENSSL_ROOT_DIR"
+          echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH"
 
-          echo "Installing core build tools and libraries (ARM mode)..."
-          arch -arm64 brew install cmake make git wget curl openssl@3 zlib bzip2 xz libxml2 libffi pkgconf || true
-
-          echo "Force link headers"
-          arch -arm64 brew link --force --overwrite openssl@3 || true
-          arch -arm64 brew link --force --overwrite libxml2 || true
-
-          # Versions for debugging
-          echo "cmake: $(cmake --version)"
-          echo "make: $(make --version)"
-          echo "openssl: $(openssl version)"
-          echo "pkg-config: $(pkg-config --version)"
-
-      # 4️⃣ Run Klocwork scan
+      # Run Klocwork scan
       - name: Klocwork scan
         uses: cloudbees-io-gha/perforce-klocwork-sast-publish@v1
         with:
@@ -61,5 +49,7 @@ jobs:
           username: ${{ vars.KLOCWORK_USERNAME }}
           project-name: test-cmake-gha
           build-directory: ctest
-          build-tool: cmake
-          build-options: make -j14
+          build-tool: make
+          build-options: |
+            cmake -DCMAKE_USE_OPENSSL=ON -DOPENSSL_ROOT_DIR=$OPENSSL_ROOT_DIR .
+            make -j14
