@@ -14,13 +14,13 @@ jobs:
     runs-on: self-hosted
     steps:
 
-      # Checkout code
+      # 1️⃣ Checkout code
       - name: Checkout repository code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # Print run info
+      # 2️⃣ Print run info
       - name: Print run info
         shell: bash
         run: |
@@ -30,17 +30,34 @@ jobs:
           echo "Job is $GITHUB_JOB"
           curl checkip.amazonaws.com
 
-      # Install dependencies on macOS
+      # 3️⃣ Install build dependencies on macOS
       - name: Install build dependencies on macOS
         shell: bash
         run: |
+          echo "Updating Homebrew..."
           brew update
-          # Install standard dependencies
-          brew install cmake openssl@3 make || true
-          # Force ARM install for pkgconf
+
+          echo "Installing core build tools and libraries..."
+          brew install cmake make git wget curl || true
+          brew install openssl@3 || true
+
+          # Pkg-config for library detection (ARM-safe)
           arch -arm64 brew install pkgconf || true
 
-      # Run Klocwork scan
+          # Additional libraries for C/C++ development
+          brew install zlib bzip2 xz libxml2 libffi || true
+
+          # Force link headers if necessary
+          brew link --force --overwrite openssl@3 || true
+          brew link --force --overwrite libxml2 || true
+
+          # Print versions for debugging
+          echo "cmake version: $(cmake --version)"
+          echo "make version: $(make --version)"
+          echo "openssl version: $(openssl version)"
+          echo "pkg-config version: $(pkg-config --version)"
+
+      # 4️⃣ Run Klocwork scan
       - name: Klocwork scan
         uses: cloudbees-io-gha/perforce-klocwork-sast-publish@v1
         with:
