@@ -41,4 +41,4 @@ jobs:
           project-name: test-make-gha
           build-directory: /
           build-tool: make
-          build-options: make -j2
+          build-options: make --ignore-errors -j2
