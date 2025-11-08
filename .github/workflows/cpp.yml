@@ -30,32 +30,25 @@ jobs:
           echo "Job is $GITHUB_JOB"
           curl checkip.amazonaws.com
 
-      # 3️⃣ Install build dependencies on macOS
+      # 3️⃣ Install build dependencies on macOS (ARM-native)
       - name: Install build dependencies on macOS
         shell: bash
         run: |
-          echo "Updating Homebrew..."
-          brew update
+          echo "Updating Homebrew (ARM mode)..."
+          arch -arm64 brew update
 
-          echo "Installing core build tools and libraries..."
-          brew install cmake make git wget curl || true
-          brew install openssl@3 || true
+          echo "Installing core build tools and libraries (ARM mode)..."
+          arch -arm64 brew install cmake make git wget curl openssl@3 zlib bzip2 xz libxml2 libffi pkgconf || true
 
-          # Pkg-config for library detection (ARM-safe)
-          arch -arm64 brew install pkgconf || true
+          echo "Force link headers"
+          arch -arm64 brew link --force --overwrite openssl@3 || true
+          arch -arm64 brew link --force --overwrite libxml2 || true
 
-          # Additional libraries for C/C++ development
-          brew install zlib bzip2 xz libxml2 libffi || true
-
-          # Force link headers if necessary
-          brew link --force --overwrite openssl@3 || true
-          brew link --force --overwrite libxml2 || true
-
-          # Print versions for debugging
-          echo "cmake version: $(cmake --version)"
-          echo "make version: $(make --version)"
-          echo "openssl version: $(openssl version)"
-          echo "pkg-config version: $(pkg-config --version)"
+          # Versions for debugging
+          echo "cmake: $(cmake --version)"
+          echo "make: $(make --version)"
+          echo "openssl: $(openssl version)"
+          echo "pkg-config: $(pkg-config --version)"
 
       # 4️⃣ Run Klocwork scan
       - name: Klocwork scan
