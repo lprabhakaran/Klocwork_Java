@@ -16,13 +16,11 @@ jobs:
       - name: Checkout repository code
         uses: actions/checkout@v4
 
-      # Install required libraries on self-hosted runner
-      - name: Install build dependencies
+      - name: Install build dependencies on macOS
         run: |
-          export DEBIAN_FRONTEND=noninteractive
-          apt-get update -y
-          apt-get install -y build-essential cmake libssl-dev pkg-config
-        shell: bash
+          brew update
+          brew install cmake openssl@3 make pkg-config
+          shell: bash
 
       # Print run info
       - name: Print run info
