@@ -35,7 +35,7 @@ jobs:
           export PKG_CONFIG_PATH=$OPENSSL_ROOT_DIR/lib/pkgconfig:$PKG_CONFIG_PATH
           mkdir -p ctest
           cd ctest
-          cmake -DCMAKE_USE_OPENSSL=ON -DOPENSSL_ROOT_DIR=$OPENSSL_ROOT_DIR ..
+          cmake -DCMAKE_USE_OPENSSL=ON -DOPENSSL_ROOT_DIR=$OPENSSL_ROOT_DIR .
 
       # Run Klocwork scan (kwinject wraps make)
       - name: Klocwork scan
