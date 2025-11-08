@@ -1,4 +1,4 @@
-name: Perforce Klocwork scan cpp  
+name: Perforce Klocwork scan cpp
 
 on:
   push:
@@ -12,17 +12,15 @@ permissions:
 jobs:
   klocwork-codescan:
     runs-on: self-hosted
-    steps:
 
-      #Checkout code
+    steps:
+      # Checkout code
       - name: Checkout repository code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 
-       
+          fetch-depth: 0
 
-     
-      #  Print GITHUB_RUN_ID and other info
+      # Print GITHUB_RUN_ID and other info
       - name: Print run info
         shell: bash
         run: |
@@ -30,7 +28,6 @@ jobs:
           echo "Source is ${{ github.server_url }}/${{ github.repository }}"
           echo "Subject is $GITHUB_WORKFLOW_REF|${{ github.run_id }}|${{ github.run_attempt }}|${{ github.run_number }}"
           echo "Job is $GITHUB_JOB"
-          echo "Step id is ${{ steps.internal.id }}"
           curl checkip.amazonaws.com
 
       # Run Klocwork scan
@@ -46,3 +43,12 @@ jobs:
           build-directory: ctest
           build-tool: cmake
           build-options: make -j14
+          # 👇 Add this line to ensure OpenSSL dev tools are present in the container
+          pre-cmd: |
+            if command -v apt-get >/dev/null 2>&1; then
+              apt-get update && apt-get install -y libssl-dev
+            elif command -v yum >/dev/null 2>&1; then
+              yum install -y openssl-devel
+            else
+              echo "Warning: Package manager not found; skipping OpenSSL install"
+            fi
