@@ -61,7 +61,5 @@ jobs:
           username: ${{ vars.KLOCWORK_USERNAME }}
           project-name: test-cmake-gha
           build-directory: ctest
-          build-tool: make
-          build-options: |
-            cmake -DCMAKE_USE_OPENSSL=ON -DOPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl@3 .
-            make -j14
+          build-tool: cmake
+          build-options: make -j14
