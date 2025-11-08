@@ -3,7 +3,7 @@ name: Perforce Klocwork scan cpp
 on:
   push:
     branches:
-      - c-test1
+      - c-test
 
 permissions:
   id-token: write
