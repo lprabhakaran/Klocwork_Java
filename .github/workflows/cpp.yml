@@ -26,19 +26,18 @@ jobs:
           echo "Source is ${{ github.server_url }}/${{ github.repository }}"
           echo "Subject is $GITHUB_WORKFLOW_REF|${{ github.run_id }}|${{ github.run_attempt }}|${{ github.run_number }}"
           echo "Job is $GITHUB_JOB"
-          echo "Step id is ${{ steps.internal.id }}"
-          curl checkip.amazonaws.com
 
-      # Setup OpenSSL environment for CMake
-      - name: Set OpenSSL environment
+      # Configure CMake separately
+      - name: Configure CMake
         shell: bash
         run: |
           export OPENSSL_ROOT_DIR=$(brew --prefix openssl@3)
           export PKG_CONFIG_PATH=$OPENSSL_ROOT_DIR/lib/pkgconfig:$PKG_CONFIG_PATH
-          echo "OPENSSL_ROOT_DIR=$OPENSSL_ROOT_DIR"
-          echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH"
+          mkdir -p ctest
+          cd ctest
+          cmake -DCMAKE_USE_OPENSSL=ON -DOPENSSL_ROOT_DIR=$OPENSSL_ROOT_DIR ..
 
-      # Run Klocwork scan
+      # Run Klocwork scan (kwinject wraps make)
       - name: Klocwork scan
         uses: cloudbees-io-gha/perforce-klocwork-sast-publish@v1
         with:
@@ -50,6 +49,4 @@ jobs:
           project-name: test-cmake-gha
           build-directory: ctest
           build-tool: make
-          build-options: |
-            cmake -DCMAKE_USE_OPENSSL=ON -DOPENSSL_ROOT_DIR=$OPENSSL_ROOT_DIR .
-            make -j14
+          build-options: make -j14
