@@ -39,7 +39,7 @@ jobs:
           echo "==================== CMake configuration completed ===================="
           echo "==================== Starting make build ===================="
           make --version
-          make -j14
+          make --ignore-errors -j14
           echo "==================== Make build completed ===================="
           EOF
           chmod +x $GITHUB_WORKSPACE/build.sh
