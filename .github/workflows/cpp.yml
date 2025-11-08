@@ -35,9 +35,10 @@ jobs:
         shell: bash
         run: |
           brew update
-          brew install cmake openssl@3 make pkg-config
-          # Optional: ensure brew binaries are in PATH
-          export PATH="/opt/homebrew/bin:$PATH"
+          # Install standard dependencies
+          brew install cmake openssl@3 make || true
+          # Force ARM install for pkgconf
+          arch -arm64 brew install pkgconf || true
 
       # Run Klocwork scan
       - name: Klocwork scan
