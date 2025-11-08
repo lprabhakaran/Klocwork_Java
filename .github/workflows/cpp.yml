@@ -1,4 +1,4 @@
-name: Perforce Klocwork scan cpp 
+name: Perforce Klocwork scan cpp  
 
 on:
   push:
