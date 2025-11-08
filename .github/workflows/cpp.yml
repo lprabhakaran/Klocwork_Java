@@ -42,5 +42,7 @@ jobs:
           username: ${{ vars.KLOCWORK_USERNAME }}
           project-name: test-cmake-gha
           build-directory: ctest
-          build-tool: cmake
-          build-options: make -j14 -DCMAKE_USE_OPENSSL=OFF
+          build-tool: make
+          build-options: |
+              cmake -DCMAKE_USE_OPENSSL=OFF
+              make -j14
