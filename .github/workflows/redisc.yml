@@ -42,3 +42,4 @@ jobs:
           build-directory: /
           build-tool: make
           build-options: make --ignore-errors -j2
+          enable-agent-scan: true
