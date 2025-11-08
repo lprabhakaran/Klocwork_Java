@@ -31,13 +31,12 @@ jobs:
           echo "Step id is ${{ steps.internal.id }}"
           curl checkip.amazonaws.com
 
-      # Install OpenSSL in Klocwork container
+      # Install OpenSSL dev package on self-hosted runner
       - name: Install OpenSSL
         shell: bash
         run: |
-          # If using Debian/Ubuntu-based image
-          docker run --rm -v $PWD:/src cloudbees-io-gha/perforce-klocwork-sast-publish:latest \
-            bash -c "apt-get update && apt-get install -y libssl-dev && rm -rf /var/lib/apt/lists/*"
+          sudo apt-get update
+          sudo apt-get install -y libssl-dev
 
       # Run Klocwork scan
       - name: Klocwork scan
@@ -51,4 +50,4 @@ jobs:
           project-name: test-cmake-gha
           build-directory: ctest
           build-tool: make
-          build-options: "cmake -DCMAKE_USE_OPENSSL=ON && make -j14"
+          build-options: "cmake && make -j14"
