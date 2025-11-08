@@ -48,7 +48,7 @@ jobs:
           echo "==================== CMake configuration completed ===================="
           echo "==================== Starting make build ===================="
           make --version
-          make -j14 VERBOSE=1
+          make -j1 VERBOSE=1 || { echo "Build failed, showing last 100 lines of error"; exit 1; }
           echo "==================== Make build completed ===================="
           EOF
           chmod +x $GITHUB_WORKSPACE/build.sh
