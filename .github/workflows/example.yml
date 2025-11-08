@@ -1,0 +1,44 @@
+name: Perforce Klocwork scan cpp
+
+on:
+  push:
+    branches:
+      - example-cpp
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  klocwork-codescan:
+    runs-on: self-hosted
+    steps:
+
+      # Checkout code
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      # Print run info
+      - name: Print run info
+        shell: bash
+        run: |
+          echo "Ref name is $GITHUB_RUN_ID"
+          echo "Source is ${{ github.server_url }}/${{ github.repository }}"
+          echo "Subject is $GITHUB_WORKFLOW_REF|${{ github.run_id }}|${{ github.run_attempt }}|${{ github.run_number }}"
+          echo "Job is $GITHUB_JOB"
+      
+
+      # Run Klocwork scan (kwinject wraps the build script)
+      - name: Klocwork scan
+        uses: cloudbees-io-gha/perforce-klocwork-sast-publish@v1
+        with:
+          cloudbees-url: ${{ vars.CLOUDBEES_QA_API_URL }}
+          url: ${{ vars.KLOCWORK_URL }}
+          token: ${{ secrets.NEW_KLOCWORK_APP_TOKEN }}
+          license-host: ${{ vars.KLOCWORK_LICENSE }}
+          username: ${{ vars.KLOCWORK_USERNAME }}
+          project-name: test-example-gha
+          build-directory: /
+          build-tool: make
+          build-options: make -j2
+         
