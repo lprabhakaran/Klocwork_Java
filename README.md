@@ -1,58 +1,32 @@
-# VeraDemo - Blab-a-Gag
+# [:] Example C++ project using Makefile.   
 
-### :information_source: Notice testqa testqa test
+An example C++ project using Makefile to demonstrate [SourceClear](https://www.sourceclear.com) scans.
 
-test gha workflow run
-This project is intentionally vulnerable! It contains known vulnerabilities and security errors in its code and is meant as an example project for software security scanning tools such as Veracode. Please do not report vulnerabilities in this project; the odds are they’re there on purpose :) .
+## Install and activate SourceClear
+Follow the instructions under the section "Setup and Configuration" in https://www.sourceclear.com/docs/command-line-interface/ to install and activate our SourceClear agent.
 
-## About
+## Scan this project
+### Linux Users
+The latest version of SourceClear agent only supports C++ projects build on Linux platforms. If you are using a Linux OS, you can scan this project by running
 
-Blab-a-Gag is a fairly simple forum type application which allows:
-* Users can post a one-liner joke.
-* Users can follow the jokes of other users or not (listen or ignore).
-* Users can comment on other users messages (heckle).
+`srcclr scan --url https://github.com/srcclr/example-cpp-makefile`
 
-### URLs
+### Non-Linux users
+For non-linux users, there is a Dockerfile in this repo that builds a Linux container image with this project in it. The steps to setup and test are as follow:
+#### 1. Clone this repo
+`git clone https://github.com/srcclr/example-cpp-makefile`
 
-* `/feed` shows the jokes/heckles that are relevant to the current user.
-* `/blabbers` shows a list of all other users and allows the current user to listen or ignore.
-* `/profile` allows the current user to modify their profile.
-* `/login` allows you to log in to your account
-* `/register` allows you to create a new user account
-* `/tools` shows a tools page that shows a fortune or lets you ping a host.
+#### 2. Change current directory to the project directory
+`cd example-cpp-makefile`
 
+#### 3. Build the Docker image
+`docker build . -t example-cpp-makefile`
 
-## Run
+This builds an image with the name `example-cpp-makefile`.
 
-If you don't already have Docker this is a prerequisite.
+#### 4. Create and run container with the image
+`docker run -e SRCCLR_API_TOKEN=<token> --rm -t --name example-cpp-makefile example-cpp-makefile`
 
-```
-docker run --rm -it -p 127.0.0.1:8080:8080 antfie/verademo
-```
+This creates a container with the name `example-cpp-makefile`, runs it and removes it after it has completed.
 
-Navigate to: http://127.0.0.1:8080.
-
-## Exploitation Demos
-
-See the `/docs` folder. [Pipeline Scan](https://docs.veracode.com/r/Pipeline_Scan) results of this application are in `/docs/scan_results/results.json`. 
-
-## Technologies Used
-
-* Spring boot
-* MariaDB
-
-## Development
-
-To build the container run this:
-```
-docker pull mariadb:10.6.2
-docker build --no-cache -t verademo .
-```
-
-To run the container for local development run this:
-
-```
-docker run --rm -it -p 127.0.0.1:8080:8080 --entrypoint bash -v "$(pwd)/app:/app" verademo
-```
-
-You will then need to manually run the two commands within `/entrypoint.sh`. The first starts the DB in the background whereas the second compiles and runs the application. Typically a container shouldn't have multiple services but this was done for convenience.
+As shown in the example, setting `SRCCLR_API_TOKEN` to Veracode SCA API token is needed to scan the project.
