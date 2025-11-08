@@ -43,4 +43,4 @@ jobs:
           project-name: test-cmake-gha
           build-directory: ctest
           build-tool: make
-          build-options: cmake -DCMAKE_USE_OPENSSL=OFF && make -j14
+          build-options: "cmake -DCMAKE_USE_OPENSSL=OFF && make -j14"
