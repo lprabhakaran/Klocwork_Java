@@ -59,5 +59,5 @@ jobs:
           username: ${{ vars.KLOCWORK_USERNAME }}
           project-name: test-cmake-gha
           build-directory: ctest
-          build-tool: bash
+          build-tool: make
           build-options: "$GITHUB_WORKSPACE/build.sh"
