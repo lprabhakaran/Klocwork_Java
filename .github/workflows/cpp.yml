@@ -33,8 +33,8 @@ jobs:
       # Install OpenSSL dev package on self-hosted runner
       - name: Install OpenSSL
         run: |
-          sudo apt-get update
-          sudo apt-get install -y libssl-dev
+           apt-get update
+           apt-get install -y libssl-dev
 
       # Run Klocwork scan
       - name: Klocwork scan
