@@ -1,3 +1,5 @@
+name: Perforce Klocwork scan cpp
+
 on:
   push:
     branches:
@@ -15,12 +17,8 @@ jobs:
       # Checkout code
       - name: Checkout repository code
         uses: actions/checkout@v4
-
-      - name: Install build dependencies on macOS
-        run: |
-          brew update
-          brew install cmake openssl@3 make pkg-config
-          shell: bash
+        with:
+          fetch-depth: 0
 
       # Print run info
       - name: Print run info
@@ -30,8 +28,16 @@ jobs:
           echo "Source is ${{ github.server_url }}/${{ github.repository }}"
           echo "Subject is $GITHUB_WORKFLOW_REF|${{ github.run_id }}|${{ github.run_attempt }}|${{ github.run_number }}"
           echo "Job is $GITHUB_JOB"
-          echo "Step id is ${{ steps.internal.id }}"
           curl checkip.amazonaws.com
+
+      # Install dependencies on macOS
+      - name: Install build dependencies on macOS
+        shell: bash
+        run: |
+          brew update
+          brew install cmake openssl@3 make pkg-config
+          # Optional: ensure brew binaries are in PATH
+          export PATH="/opt/homebrew/bin:$PATH"
 
       # Run Klocwork scan
       - name: Klocwork scan
@@ -44,5 +50,7 @@ jobs:
           username: ${{ vars.KLOCWORK_USERNAME }}
           project-name: test-cmake-gha
           build-directory: ctest
-          build-tool: cmake
-          build-options: make -j14
+          build-tool: make
+          build-options: |
+            cmake -DCMAKE_USE_OPENSSL=ON -DOPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl@3 .
+            make -j14
