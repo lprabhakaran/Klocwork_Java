@@ -1,4 +1,4 @@
-name: Perforce Klocwork scan cpp
+name: Perforce Klocwork scan cpp 
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
 
       # Checkout code
       - name: Checkout repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       # Print run info
       - name: Print run info
