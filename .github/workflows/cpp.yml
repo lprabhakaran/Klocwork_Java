@@ -1,4 +1,4 @@
-name: Perforce Klocwork scan cpp 
+name: Perforce Klocwork scan cpp
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
 
       # Checkout code
       - name: Checkout repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Print run info
       - name: Print run info
@@ -42,9 +42,14 @@ jobs:
         run: |
           cat > $GITHUB_WORKSPACE/build.sh << 'EOF'
           #!/bin/bash
-          set -e
+          set -ex
+          echo "==================== Starting CMake configuration ===================="
           cmake -DCMAKE_USE_OPENSSL=ON -DOPENSSL_ROOT_DIR=$GITHUB_WORKSPACE/.deps/openssl .
-          make -j14
+          echo "==================== CMake configuration completed ===================="
+          echo "==================== Starting make build ===================="
+          make --version
+          make -j14 VERBOSE=1
+          echo "==================== Make build completed ===================="
           EOF
           chmod +x $GITHUB_WORKSPACE/build.sh
 
