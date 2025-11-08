@@ -27,15 +27,6 @@ jobs:
           echo "Subject is $GITHUB_WORKFLOW_REF|${{ github.run_id }}|${{ github.run_attempt }}|${{ github.run_number }}"
           echo "Job is $GITHUB_JOB"
 
-      # Copy OpenSSL into workspace for Docker access
-      - name: Prepare OpenSSL for Docker container
-        shell: bash
-        run: |
-          OPENSSL_SRC=$(brew --prefix openssl@3)
-          mkdir -p $GITHUB_WORKSPACE/.deps/openssl
-          cp -R $OPENSSL_SRC/* $GITHUB_WORKSPACE/.deps/openssl/
-          echo "OpenSSL copied from $OPENSSL_SRC to $GITHUB_WORKSPACE/.deps/openssl"
-
       # Create build script that kwinject can wrap
       - name: Create build script
         shell: bash
@@ -44,11 +35,11 @@ jobs:
           #!/bin/bash
           set -ex
           echo "==================== Starting CMake configuration ===================="
-          cmake -DCMAKE_USE_OPENSSL=ON -DOPENSSL_ROOT_DIR=$GITHUB_WORKSPACE/.deps/openssl .
+          cmake -DCMAKE_USE_OPENSSL=OFF .
           echo "==================== CMake configuration completed ===================="
           echo "==================== Starting make build ===================="
           make --version
-          make -j1 VERBOSE=1 || { echo "Build failed, showing last 100 lines of error"; exit 1; }
+          make -j14
           echo "==================== Make build completed ===================="
           EOF
           chmod +x $GITHUB_WORKSPACE/build.sh
