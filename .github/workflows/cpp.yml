@@ -17,6 +17,8 @@ jobs:
       #Checkout code
       - name: Checkout repository code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
        
 
      
