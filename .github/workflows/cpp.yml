@@ -1,51 +1,51 @@
-name: Perforce Klocwork scan cpp  
-
-on:
-  push:
-    branches:
-      - c-test
-
-permissions:
-  id-token: write
-  contents: read
-
-jobs:
-  klocwork-codescan:
-    runs-on: self-hosted
-    steps:
-
-      # Checkout code
-      - name: Checkout repository code
-        uses: actions/checkout@v4
-
-      # Print run info
-      - name: Print run info
-        shell: bash
-        run: |
-          echo "Ref name is $GITHUB_RUN_ID"
-          echo "Source is ${{ github.server_url }}/${{ github.repository }}"
-          echo "Subject is $GITHUB_WORKFLOW_REF|${{ github.run_id }}|${{ github.run_attempt }}|${{ github.run_number }}"
-          echo "Job is $GITHUB_JOB"
-
-      # Configure CMake separately
-      - name: Configure CMake
-        shell: bash
-        run: |
-          export OPENSSL_ROOT_DIR=$(brew --prefix openssl@3)
-          export PKG_CONFIG_PATH=$OPENSSL_ROOT_DIR/lib/pkgconfig:$PKG_CONFIG_PATH
-          
-          
-
-      # Run Klocwork scan (kwinject wraps make)
-      - name: Klocwork scan
-        uses: cloudbees-io-gha/perforce-klocwork-sast-publish@v1
-        with:
-          cloudbees-url: ${{ vars.CLOUDBEES_QA_API_URL }}
-          url: ${{ vars.KLOCWORK_URL }}
-          token: ${{ secrets.NEW_KLOCWORK_APP_TOKEN }}
-          license-host: ${{ vars.KLOCWORK_LICENSE }}
-          username: ${{ vars.KLOCWORK_USERNAME }}
-          project-name: test-cmake-gha
-          build-directory: ctest
-          build-tool: make
-          build-options: "cmake -DCMAKE_USE_OPENSSL=ON -DOPENSSL_ROOT_DIR=$OPENSSL_ROOT_DIR . && make -j14 "
+name: Perforce Klocwork scan cpp                                                                                                                                                                                                                │
+│                                                                                                                                                                                                                                                 │
+│ on:                                                                                                                                                                                                                                             │
+│   push:                                                                                                                                                                                                                                         │
+│     branches:                                                                                                                                                                                                                                   │
+│       - c-test                                                                                                                                                                                                                                  │
+│                                                                                                                                                                                                                                                 │
+│ permissions:                                                                                                                                                                                                                                    │
+│   id-token: write                                                                                                                                                                                                                               │
+│   contents: read                                                                                                                                                                                                                                │
+│                                                                                                                                                                                                                                                 │
+│ jobs:                                                                                                                                                                                                                                           │
+│   klocwork-codescan:                                                                                                                                                                                                                            │
+│     runs-on: self-hosted                                                                                                                                                                                                                        │
+│     steps:                                                                                                                                                                                                                                      │
+│                                                                                                                                                                                                                                                 │
+│       # Checkout code                                                                                                                                                                                                                           │
+│       - name: Checkout repository code                                                                                                                                                                                                          │
+│         uses: actions/checkout@v4                                                                                                                                                                                                               │
+│                                                                                                                                                                                                                                                 │
+│       # Print run info                                                                                                                                                                                                                          │
+│       - name: Print run info                                                                                                                                                                                                                    │
+│         shell: bash                                                                                                                                                                                                                             │
+│         run: |                                                                                                                                                                                                                                  │
+│           echo "Ref name is $GITHUB_RUN_ID"                                                                                                                                                                                                     │
+│           echo "Source is ${{ github.server_url }}/${{ github.repository }}"                                                                                                                                                                    │
+│           echo "Subject is $GITHUB_WORKFLOW_REF|${{ github.run_id }}|${{ github.run_attempt }}|${{ github.run_number }}"                                                                                                                        │
+│           echo "Job is $GITHUB_JOB"                                                                                                                                                                                                             │
+│                                                                                                                                                                                                                                                 │
+│       # Copy OpenSSL into workspace for Docker access                                                                                                                                                                                           │
+│       - name: Prepare OpenSSL for Docker container                                                                                                                                                                                              │
+│         shell: bash                                                                                                                                                                                                                             │
+│         run: |                                                                                                                                                                                                                                  │
+│           OPENSSL_SRC=$(brew --prefix openssl@3)                                                                                                                                                                                                │
+│           mkdir -p $GITHUB_WORKSPACE/.deps/openssl                                                                                                                                                                                              │
+│           cp -R $OPENSSL_SRC/* $GITHUB_WORKSPACE/.deps/openssl/                                                                                                                                                                                 │
+│           echo "OpenSSL copied from $OPENSSL_SRC to $GITHUB_WORKSPACE/.deps/openssl"                                                                                                                                                            │
+│                                                                                                                                                                                                                                                 │
+│       # Run Klocwork scan (kwinject wraps the entire build process)                                                                                                                                                                             │
+│       - name: Klocwork scan                                                                                                                                                                                                                     │
+│         uses: cloudbees-io-gha/perforce-klocwork-sast-publish@v1                                                                                                                                                                                │
+│         with:                                                                                                                                                                                                                                   │
+│           cloudbees-url: ${{ vars.CLOUDBEES_QA_API_URL }}                                                                                                                                                                                       │
+│           url: ${{ vars.KLOCWORK_URL }}                                                                                                                                                                                                         │
+│           token: ${{ secrets.NEW_KLOCWORK_APP_TOKEN }}                                                                                                                                                                                          │
+│           license-host: ${{ vars.KLOCWORK_LICENSE }}                                                                                                                                                                                            │
+│           username: ${{ vars.KLOCWORK_USERNAME }}                                                                                                                                                                                               │
+│           project-name: test-cmake-gha                                                                                                                                                                                                          │
+│           build-directory: ctest                                                                                                                                                                                                                │
+│           build-tool: make                                                                                                                                                                                                                      │
+│           build-options: "cmake -DCMAKE_USE_OPENSSL=ON -DOPENSSL_ROOT_DIR=$GITHUB_WORKSPACE/.deps/openssl . && make -j14"      
