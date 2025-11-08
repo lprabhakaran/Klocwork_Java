@@ -30,11 +30,6 @@ jobs:
           echo "Step id is ${{ steps.internal.id }}"
           curl checkip.amazonaws.com
 
-      # Install OpenSSL dev package on self-hosted runner
-      - name: Install OpenSSL
-        run: |
-           apt-get update
-           apt-get install -y libssl-dev
 
       # Run Klocwork scan
       - name: Klocwork scan
@@ -48,4 +43,6 @@ jobs:
           project-name: test-cmake-gha
           build-directory: ctest
           build-tool: make
-          build-options: "cmake && make -j14"
+          build-options: |
+            cmake -DCMAKE_USE_OPENSSL=OFF .
+            make -j14
