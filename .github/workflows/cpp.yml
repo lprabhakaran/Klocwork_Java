@@ -39,6 +39,9 @@ jobs:
       # Run Klocwork scan (kwinject wraps the entire build process)
       - name: Klocwork scan
         uses: cloudbees-io-gha/perforce-klocwork-sast-publish@v1
+        env:
+          OPENSSL_ROOT_DIR: ${{ github.workspace }}/.deps/openssl
+          CMAKE_USE_OPENSSL: ON
         with:
           cloudbees-url: ${{ vars.CLOUDBEES_QA_API_URL }}
           url: ${{ vars.KLOCWORK_URL }}
@@ -47,5 +50,5 @@ jobs:
           username: ${{ vars.KLOCWORK_USERNAME }}
           project-name: test-cmake-gha
           build-directory: ctest
-          build-tool: make
-          build-options: "cmake -DCMAKE_USE_OPENSSL=ON -DOPENSSL_ROOT_DIR=$GITHUB_WORKSPACE/.deps/openssl . && make -j14"
+          build-tool: cmake
+          build-options: "make -j14"
