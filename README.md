@@ -1,4 +1,4 @@
-# VeraDemo - Blab-a-Gag
+# VeraDemo - Blab-a-Gag trigger implicit scan
 
 ### :information_source: Notice testqa testqa test
 
