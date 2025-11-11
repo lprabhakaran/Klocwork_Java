@@ -3,7 +3,7 @@ name: Perforce Klocwork scan
 on:
   push:
     branches:
-      - main
+      - main-2
 
 permissions:
   id-token: write      # needed for OIDC token access
