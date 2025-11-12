@@ -22,7 +22,7 @@ jobs:
           username: ${{ vars.KLOCWORK_USERNAME }}
           build-tool: cmd
           build-options: ' kwmaven --output /tmp/kw.out'
-          build-spec-file: /tmp/kw.out
+          build-spec-file: '/tmp/kw.out'
           build-directory: app
           enable-agent-scan: true
 on:
