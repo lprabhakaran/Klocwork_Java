@@ -21,8 +21,8 @@ jobs:
           token: ${{ secrets.KLOCWORK_APP_TOKEN }}
           license-host: 54.162.178.237
           username: ${{ vars.KLOCWORK_USERNAME }}
-          build-tool: maven
-          build-options: clean install
+          build-tool: cmd
+          build-options: kwmaven --output /tmp/kwoutput_test.out
           build-spec-file: /tmp/kwoutput_test.out
           build-directory: app
           enable-agent-scan: true
