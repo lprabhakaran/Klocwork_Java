@@ -12,7 +12,7 @@ jobs:
       - name: check out source code
         uses: cloudbees-io/checkout@v1
         with:
-          ref: main
+          ref: redis-make
       - id: klocwork-step
         name: perforce klocwork scan
         uses: cloudbees-io/perforce-klocwork-sast-plugin@v2
