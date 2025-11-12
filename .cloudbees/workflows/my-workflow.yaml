@@ -21,6 +21,7 @@ jobs:
           license-host: 54.162.178.237
           username: ${{ vars.KLOCWORK_USERNAME }}
           build-tool: maven
+          build-directory: app
           enable-agent-scan: true
 on:
   workflow_dispatch:
