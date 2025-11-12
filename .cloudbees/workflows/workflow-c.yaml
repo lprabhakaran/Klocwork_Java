@@ -23,7 +23,6 @@ jobs:
           username: ${{ vars.KLOCWORK_USERNAME }}
           build-tool: make
           build-options: make -j14
-          build-directory: app
           enable-agent-scan: false
 on:
   workflow_dispatch:
