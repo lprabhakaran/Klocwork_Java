@@ -6,7 +6,7 @@ permissions:
   scm-token-org: read
   id-token: write
 env:
-    KLOCWORK_CMD: "bash -c 'kwmaven -output /tmp/kw.out'"
+    OUTPUT_FILE: "/tmp/kw.out"
 jobs:
   build:
     steps:
@@ -23,8 +23,8 @@ jobs:
           license-host: 54.162.178.237
           username: ${{ vars.KLOCWORK_USERNAME }}
           build-tool: "cmd"
-          build-options: ${{ env.KLOCWORK_CMD }}
-          build-spec-file: /tmp/kw.out
+          build-options: "kwmaven -output ${{ env.OUTPUT_FILE }}"
+          build-spec-file: ${{ env.OUTPUT_FILE }}
           build-directory: app
           enable-agent-scan: true
 on:
