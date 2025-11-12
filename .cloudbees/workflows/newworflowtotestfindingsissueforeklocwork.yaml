@@ -15,13 +15,13 @@ jobs:
           ref: main
       - id: klocwork-step
         name: perforce klocwork scan
-        uses: cloudbees-io/perforce-klocwork-sast-plugin@v1
+        uses: cloudbees-io/perforce-klocwork-sast-plugin@v2
         with:
           url: ${{ vars.KLOCWORK_URL }}
           token: ${{ secrets.KLOCWORK_APP_TOKEN }}
           license-host: 54.162.178.237
           username: ${{ vars.KLOCWORK_USERNAME }}
-          build-tool: 'cmd'
+          build-tool: cmd
           build-options: kwmaven --output /tmp/kwoutput_test.out
           build-spec-file: /tmp/kwoutput_test.out
           build-directory: app
