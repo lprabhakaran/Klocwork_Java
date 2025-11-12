@@ -1,0 +1,26 @@
+name: my-workflow
+kind: workflow
+apiVersion: automation.cloudbees.io/v1alpha1
+permissions:
+  scm-token-own: read
+  scm-token-org: read
+  id-token: write
+jobs:
+  build:
+    steps:
+      - name: check out source code
+        uses: cloudbees-io/checkout@v1
+        with:
+          ref: main
+      - id: klocwork-step
+        name: perforce klocwork scan
+        uses: cloudbees-io/perforce-klocwork-sast-plugin@v1
+        with:
+          url: ${{ vars.KLOCWORK_URL }}
+          token: ${{ secrets.NEW_KLOCWORK_APP_TOKEN }}
+          license-host: 54.162.178.237
+          username: ${{ vars.KLOCWORK_USERNAME }}
+          build-tool: maven
+          enable-local-scan: true
+on:
+  workflow_dispatch:
