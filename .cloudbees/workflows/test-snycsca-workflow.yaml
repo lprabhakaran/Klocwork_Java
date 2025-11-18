@@ -15,6 +15,10 @@ jobs:
 
       - name: Snyk SCA scan
         uses: cloudbees-io/snyk-sca-scan-dependency@v1
+        env:
+            NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+            NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+            NEXUS_REPO_URL: ${{ secrets.NEXUS_URL }}
         with:
             orgname: ${{ vars.SNYK_ORG_NAME }}
             token: ${{ secrets.SNYK_SECRET }}
