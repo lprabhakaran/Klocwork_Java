@@ -13,13 +13,57 @@ jobs:
       - name: checkout-source-code
         uses: cloudbees-io/checkout@v1
 
+      - name: Create Maven Settings
+        uses: docker://alpine:latest
+        run: |
+          mkdir -p .m2
+          cat > .m2/settings.xml << 'EOF'
+          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                                        https://maven.apache.org/xsd/settings-1.0.0.xsd">
+            <servers>
+              <server>
+                <id>nexus-download</id>
+                <username>${env.NEXUS_USERNAME}</username>
+                <password>${env.NEXUS_PASSWORD}</password>
+              </server>
+            </servers>
+            
+            <profiles>
+              <profile>
+                <id>nexus</id>
+                <activation>
+                  <file>
+                    <exists>src/main/java/com/cloudbees/compliance</exists>
+                  </file>
+                </activation>
+                <repositories>
+                  <repository>
+                    <id>nexus-download</id>
+                    <name>Internal Releases</name>
+                    <url>${env.NEXUS_REPO_URL}</url>
+                  </repository>
+                </repositories>
+              </profile>
+            </profiles>
+          </settings>
+          EOF
+          
+          # Optional: Copy to home directory as well
+          mkdir -p $HOME/.m2
+          cp .m2/settings.xml $HOME/.m2/settings.xml
+          
+          echo "Maven settings created successfully"
+          ls -la .m2/
+
       - name: Snyk SCA scan
         uses: cloudbees-io/snyk-sca-scan-dependency@v1
         env:
-            NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-            NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-            NEXUS_REPO_URL: ${{ secrets.NEXUS_URL }}
+          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+          NEXUS_REPO_URL: "https://artifacts.cloudbees.com/repository/maven-private-releases/"
         with:
-            orgname: ${{ vars.SNYK_ORG_NAME }}
-            token: ${{ secrets.SNYK_SECRET }}
-            language: LANGUAGE_JAVA
+          orgname: ${{ vars.SNYK_ORG_NAME }}
+          token: ${{ secrets.SNYK_SECRET }}
+          language: LANGUAGE_JAVA
