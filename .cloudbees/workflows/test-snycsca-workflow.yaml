@@ -54,6 +54,14 @@ jobs:
           
           echo "Maven settings created successfully"
           ls -la .m2/
+        
+      - name: Debug Maven Settings
+        uses: docker://alpine:latest
+        run: |
+          echo "Checking effective Maven settings:"
+          ls -la .m2
+          cat .m2/settings.xml
+
 
       - name: Snyk SCA scan
         uses: cloudbees-io/snyk-sca-scan-dependency@v1
