@@ -1,35 +1,66 @@
-# For Security Labs we need both the application and DB running within the same container.
-# It's far easier to use the MariaDB base image and install Maven and Tomcat on top than
-# the other way around. We are using Maven to enable re-compilation within the lab.
-#
-#https://hub.docker.com/_/mariadb/
-# This is Ubuntu 20.04 LTS
-FROM mariadb:10.6.2
+# syntax=docker/dockerfile:1
+ARG BASE_FINAL_IMAGE=eclipse-temurin:17-jammy
+ARG BASE_BUILD_IMAGE=maven:3.9.11-eclipse-temurin-17
+ARG DEPS_IMAGE=alpine:3.20
 
-# Configure MariaDB
-ENV MYSQL_RANDOM_ROOT_PASSWORD=true
-ENV MYSQL_DATABASE=blab
+######## Build ########
+FROM ${BASE_BUILD_IMAGE} AS build
+ARG PROJECT_KEY
+ARG SONAR_HOST
+ARG SONAR_LOGIN
 
-# Copy DB schema for DB initialisation
-COPY db /docker-entrypoint-initdb.d
+WORKDIR /src
+# this copy uses the .dockerignore to only copy src .m2 and pom.xml
+COPY . /src/
 
-# Install OpenJDK 8 and Maven
-# Also install the fortune-mod fortune game
-# https://docs.microsoft.com/en-us/dotnet/core/install/linux-ubuntu
-RUN apt-get update \
-    && apt-get -y install openjdk-8-jdk-headless openjdk-8-jre-headless maven fortune-mod iputils-ping \
-    && ln -s /usr/games/fortune /bin/ \
-    && rm -rf /var/lib/apt/lists/*
+# LOG_DIR is needed because the plugins are writing log files 
+ENV LOG_DIR=/tmp/logs/
+ENV LOG_LEVEL=INFO
 
-COPY entrypoint.sh /
-RUN chmod +x /entrypoint.sh
+# Maven deploy
+RUN mvn -e -s .m2/settings.xml clean deploy sonar:sonar \
+    -Dsonar.projectKey=${PROJECT_KEY} \
+    -Dsonar.host.url=${SONAR_HOST} \
+    -Dsonar.login=${SONAR_LOGIN}
 
+######## Dependencies ########
+FROM ${DEPS_IMAGE} as deps
+WORKDIR /app/
+# download OTLP javaagent as a dependency and we can copy it into the final image
+RUN wget -O opentelemetry-javaagent.jar https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar
+
+######## Final Image  ########
+FROM ${BASE_FINAL_IMAGE}
 WORKDIR /app
-COPY app /app
-COPY maven-settings.xml /usr/share/maven/conf/settings.xml
 
-# Compile
-RUN mvn clean package && rm -rf target
+# update packages and install
+RUN echo "===> OS Update..." \
+    && DEBIAN_FRONTEND=noninteractive apt-get update -q \
+    && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -yq ca-certificates \
+    && DEBIAN_FRONTEND=noninteractive apt-get clean
 
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["-c"]
+# userid and groupid to run as
+ARG UID=1000
+ARG GID=1000
+
+# create non-priv user and group and set homedir as /tmp
+RUN groupadd -g "${GID}" non-priv \
+  && useradd --create-home -d /tmp --no-log-init -u "${UID}" -g "${GID}" non-priv
+# create tmp-pre-boot folder to allow copying into /tmp on bootup and fix permissions
+# before changing user (but user must have been created already)
+RUN mkdir /tmp-pre-boot || true && chown -R non-priv:non-priv /tmp-pre-boot
+USER non-priv
+
+COPY --chown=${UID}:${GID} --from=deps /app/opentelemetry-javaagent.jar /app/opentelemetry-javaagent.jar
+COPY --chown=${UID}:${GID} --from=build /src/target/zap.jar /app/zap.jar
+COPY --chown=${UID}:${GID} --from=build /src/entrypoint.sh /app/entrypoint.sh
+ADD --chown=${UID}:${GID} auth0-auth.js /app/zap/auth0-auth.js
+
+# LOG_DIR is needed because the plugins are writing log files for tomcat
+ENV LOG_DIR=/tmp/logs/
+ENV LOG_LEVEL=DEBUG
+
+# move /tmp content into /tmp-pre-boot so entrypoint.sh can copy it back after mounting /tmp
+RUN cp -R /tmp/. /tmp-pre-boot/
+
+ENTRYPOINT ["./entrypoint.sh"]
