@@ -34,9 +34,7 @@ jobs:
               <profile>
                 <id>nexus</id>
                 <activation>
-                  <file>
-                    <exists>src/main/java/com/cloudbees/compliance</exists>
-                  </file>
+                    <activeByDefault>true</activeByDefault>
                 </activation>
                 <repositories>
                   <repository>
@@ -62,7 +60,7 @@ jobs:
         env:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-          NEXUS_REPO_URL: "https://artifacts.cloudbees.com/repository/maven-private-releases/"
+          NEXUS_REPO_URL: ${{ secrets.NEXUS_URL }}
         with:
           orgname: ${{ vars.SNYK_ORG_NAME }}
           token: ${{ secrets.SNYK_SECRET }}
