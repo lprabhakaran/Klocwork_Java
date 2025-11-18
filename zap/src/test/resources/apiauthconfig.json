@@ -1,0 +1,21 @@
+{
+				"authType" : "API",
+				"contextAvailable": true,
+				"scanType": "API",
+				"discoveryTool": "Swagger",
+				"swaggerURL": "https://petstore.swagger.io/v2/swagger.json",
+				"authenticationType": "Basic",
+				"authenticationKey": "admin",
+					"authenticationValue": "admin",
+					"headers": [{
+						"headerKey": "type",
+						"headerValue": "application/json"
+					}, {
+						"headerKey": "accept-headers",
+						"headerValue": "*"
+					}, {
+						"headerKey": "allowed-methods",
+						"headerValue": "POST, PUT"
+					}]
+					
+				}

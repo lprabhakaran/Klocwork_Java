@@ -1,0 +1,2273 @@
+{
+  "vulnerabilities": [
+    {
+      "id": "SNYK-JAVA-CHQOSLOGBACK-13169722",
+      "title": "External Initialization of Trusted Variables or Data Stores",
+      "CVSSv3": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:C/C:H/I:L/A:L",
+      "credit": [
+        "Unknown"
+      ],
+      "semver": {
+        "vulnerable": [
+          "[,1.5.19)"
+        ]
+      },
+      "exploit": "Not Defined",
+      "fixedIn": [
+        "1.5.19"
+      ],
+      "patches": [],
+      "insights": {
+        "triageAdvice": null
+      },
+      "language": "java",
+      "severity": "medium",
+      "cvssScore": 5.9,
+      "functions": [],
+      "malicious": false,
+      "isDisputed": false,
+      "moduleName": "ch.qos.logback:logback-core",
+      "references": [
+        {
+          "url": "https://github.com/qos-ch/logback/commit/61f6a2544f36b3016e0efd434ee21f19269f1df7",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://logback.qos.ch/news.html%231.5.19",
+          "title": "Release Notes"
+        }
+      ],
+      "cvssDetails": [
+        {
+          "assigner": "Red Hat",
+          "severity": "medium",
+          "cvssV3Vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:C/C:H/I:L/A:L",
+          "cvssV3BaseScore": 6.4,
+          "modificationTime": "2025-10-04T19:43:14.046068Z"
+        }
+      ],
+      "cvssSources": [
+        {
+          "type": "primary",
+          "vector": "CVSS:4.0/AV:L/AC:L/AT:P/PR:H/UI:P/VC:H/VI:L/VA:L/SC:H/SI:L/SA:L",
+          "assigner": "Snyk",
+          "severity": "medium",
+          "baseScore": 5.9,
+          "cvssVersion": "4.0",
+          "modificationTime": "2025-10-01T12:16:52.160102Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:C/C:H/I:L/A:L",
+          "assigner": "Snyk",
+          "severity": "medium",
+          "baseScore": 6.4,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-10-01T12:16:52.160102Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:C/C:H/I:L/A:L",
+          "assigner": "Red Hat",
+          "severity": "medium",
+          "baseScore": 6.4,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-10-04T19:43:14.046068Z"
+        }
+      ],
+      "description": "## Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to External Initialization of Trusted Variables or Data Stores via the conditional processing of the `logback.xml` configuration file when both the Janino library and Spring Framework are present on the class path. An attacker can execute arbitrary code by compromising an existing configuration file or injecting a malicious environment variable before program execution. This is only exploitable if the attacker has write access to a configuration file or can set a malicious environment variable.\n## Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.5.19 or higher.\n## References\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/61f6a2544f36b3016e0efd434ee21f19269f1df7)\n- [Release Notes](https://logback.qos.ch/news.html#1.5.19)\n",
+      "epssDetails": {
+        "percentile": "0.11888",
+        "probability": "0.00040",
+        "modelVersion": "v2025.03.14"
+      },
+      "identifiers": {
+        "CVE": [
+          "CVE-2025-11226"
+        ],
+        "CWE": [
+          "CWE-454"
+        ]
+      },
+      "packageName": "ch.qos.logback:logback-core",
+      "proprietary": false,
+      "creationTime": "2025-10-01T12:16:51.884016Z",
+      "functions_new": [],
+      "alternativeIds": [],
+      "disclosureTime": "2025-10-01T07:46:31.257000Z",
+      "exploitDetails": {
+        "sources": [],
+        "maturityLevels": [
+          {
+            "type": "secondary",
+            "level": "Not Defined",
+            "format": "CVSSv3"
+          },
+          {
+            "type": "primary",
+            "level": "Not Defined",
+            "format": "CVSSv4"
+          }
+        ]
+      },
+      "packageManager": "maven",
+      "mavenModuleName": {
+        "groupId": "ch.qos.logback",
+        "artifactId": "logback-core"
+      },
+      "publicationTime": "2025-10-01T12:16:52.127237Z",
+      "severityBasedOn": "CVSS",
+      "modificationTime": "2025-10-04T19:43:14.046068Z",
+      "socialTrendAlert": false,
+      "severityWithCritical": "medium",
+      "from": [
+        "com.cloudbees.compliance.plugins:zap@2.6.6",
+        "org.springframework.boot:spring-boot-starter@3.5.5",
+        "org.springframework.boot:spring-boot-starter-logging@3.5.5",
+        "ch.qos.logback:logback-classic@1.5.18",
+        "ch.qos.logback:logback-core@1.5.18"
+      ],
+      "upgradePath": [
+        false,
+        "org.springframework.boot:spring-boot-starter@3.5.7",
+        "org.springframework.boot:spring-boot-starter-logging@3.5.7",
+        "ch.qos.logback:logback-classic@1.5.20",
+        "ch.qos.logback:logback-core@1.5.20"
+      ],
+      "isUpgradable": true,
+      "isPatchable": false,
+      "name": "ch.qos.logback:logback-core",
+      "version": "1.5.18"
+    },
+    {
+      "id": "snyk:lic:maven:ch.qos.logback:logback-core:(EPL-1.0_OR_LGPL-2.1)",
+      "type": "license",
+      "title": "Dual license: EPL-1.0, LGPL-2.1",
+      "semver": {
+        "vulnerable": [
+          "[0.9.18,)"
+        ]
+      },
+      "license": "(EPL-1.0 OR LGPL-2.1)",
+      "language": "java",
+      "description": "Dual license: EPL-1.0, LGPL-2.1",
+      "packageName": "ch.qos.logback:logback-core",
+      "creationTime": "2025-03-09T16:21:02.569Z",
+      "packageManager": "maven",
+      "publicationTime": "2025-03-09T16:21:02.569Z",
+      "severity": "medium",
+      "severityWithCritical": "medium",
+      "from": [
+        "com.cloudbees.compliance.plugins:zap@2.6.6",
+        "org.springframework.boot:spring-boot-starter@3.5.5",
+        "org.springframework.boot:spring-boot-starter-logging@3.5.5",
+        "ch.qos.logback:logback-classic@1.5.18",
+        "ch.qos.logback:logback-core@1.5.18"
+      ],
+      "upgradePath": [],
+      "isUpgradable": false,
+      "isPatchable": false,
+      "name": "ch.qos.logback:logback-core",
+      "version": "1.5.18"
+    },
+    {
+      "id": "SNYK-JAVA-COMGOOGLEPROTOBUF-8055228",
+      "title": "Stack-based Buffer Overflow",
+      "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "credit": [
+        "Alexis Challande"
+      ],
+      "semver": {
+        "vulnerable": [
+          "[,3.25.5)",
+          "[4.0.0-rc-1,4.27.5)",
+          "[4.28.0-RC1,4.28.2)"
+        ]
+      },
+      "exploit": "Not Defined",
+      "fixedIn": [
+        "3.25.5",
+        "4.27.5",
+        "4.28.2"
+      ],
+      "patches": [],
+      "insights": {
+        "triageAdvice": null
+      },
+      "language": "java",
+      "severity": "high",
+      "cvssScore": 8.7,
+      "functions": [],
+      "malicious": false,
+      "isDisputed": false,
+      "moduleName": "com.google.protobuf:protobuf-java-util",
+      "references": [
+        {
+          "url": "https://github.com/protocolbuffers/protobuf/commit/ac9fb5b4c71b0dd80985b27684e265d1f03abf46",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/protocolbuffers/protobuf/commit/cc8b3483a5584b3301e3d43d17eb59704857ffaa",
+          "title": "GitHub Commit"
+        }
+      ],
+      "cvssDetails": [
+        {
+          "assigner": "NVD",
+          "severity": "high",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "cvssV3BaseScore": 7.5,
+          "modificationTime": "2025-07-31T01:13:20.414462Z"
+        },
+        {
+          "assigner": "Red Hat",
+          "severity": "high",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "cvssV3BaseScore": 7.5,
+          "modificationTime": "2024-09-19T13:39:54.843878Z"
+        },
+        {
+          "assigner": "SUSE",
+          "severity": "high",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "cvssV3BaseScore": 7.5,
+          "modificationTime": "2024-10-23T11:01:52.842400Z"
+        }
+      ],
+      "cvssSources": [
+        {
+          "type": "primary",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+          "assigner": "Snyk",
+          "severity": "high",
+          "baseScore": 8.7,
+          "cvssVersion": "4.0",
+          "modificationTime": "2025-03-12T11:26:25.802904Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "assigner": "Snyk",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-03-12T11:26:25.802904Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "assigner": "NVD",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-07-31T01:13:20.414462Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "assigner": "Red Hat",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2024-09-19T13:39:54.843878Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "assigner": "SUSE",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2024-10-23T11:01:52.842400Z"
+        }
+      ],
+      "description": "## Overview\n\nAffected versions of this package are vulnerable to Stack-based Buffer Overflow via the parsing of nested groups or series of `SGROUP` tags as unknown fields with `DiscardUnknownFieldsParser` or Java Protobuf Lite parser, or against Protobuf map fields. An attacker can cause infinite recursion by sending malicious Protocol Buffer data.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `com.google.protobuf:protobuf-java-util` to version 3.25.5, 4.27.5, 4.28.2 or higher.\n## References\n- [GitHub Commit](https://github.com/protocolbuffers/protobuf/commit/ac9fb5b4c71b0dd80985b27684e265d1f03abf46)\n- [GitHub Commit](https://github.com/protocolbuffers/protobuf/commit/cc8b3483a5584b3301e3d43d17eb59704857ffaa)\n",
+      "epssDetails": {
+        "percentile": "0.19144",
+        "probability": "0.00061",
+        "modelVersion": "v2025.03.14"
+      },
+      "identifiers": {
+        "CVE": [
+          "CVE-2024-7254"
+        ],
+        "CWE": [
+          "CWE-121"
+        ],
+        "GHSA": [
+          "GHSA-735f-pc8j-v9w8"
+        ]
+      },
+      "packageName": "com.google.protobuf:protobuf-java-util",
+      "proprietary": false,
+      "creationTime": "2024-09-19T06:54:49.399343Z",
+      "functions_new": [],
+      "alternativeIds": [],
+      "disclosureTime": "2024-09-19T00:46:47Z",
+      "exploitDetails": {
+        "sources": [],
+        "maturityLevels": [
+          {
+            "type": "secondary",
+            "level": "Not Defined",
+            "format": "CVSSv3"
+          },
+          {
+            "type": "primary",
+            "level": "Not Defined",
+            "format": "CVSSv4"
+          }
+        ]
+      },
+      "packageManager": "maven",
+      "mavenModuleName": {
+        "groupId": "com.google.protobuf",
+        "artifactId": "protobuf-java-util"
+      },
+      "publicationTime": "2024-09-19T07:20:18.128214Z",
+      "severityBasedOn": "CVSS",
+      "modificationTime": "2025-07-31T01:13:20.414462Z",
+      "socialTrendAlert": false,
+      "severityWithCritical": "high",
+      "from": [
+        "com.cloudbees.compliance.plugins:zap@2.6.6",
+        "com.cloudbees.compliance.plugins:service-impl@2.2.24",
+        "io.github.lognet:grpc-spring-boot-starter@5.0.0",
+        "io.grpc:grpc-services@1.51.0",
+        "com.google.protobuf:protobuf-java-util@3.21.7"
+      ],
+      "upgradePath": [],
+      "isUpgradable": false,
+      "isPatchable": false,
+      "name": "com.google.protobuf:protobuf-java-util",
+      "version": "3.21.7"
+    },
+    {
+      "id": "SNYK-JAVA-IOGRPC-13786834",
+      "title": "Allocation of Resources Without Limits or Throttling",
+      "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "credit": [
+        "Gal Bar Nahum",
+        "Anat Bremler-Barr",
+        "Yaniv Harel"
+      ],
+      "semver": {
+        "vulnerable": [
+          "[,1.75.0)"
+        ]
+      },
+      "exploit": "Not Defined",
+      "fixedIn": [
+        "1.75.0"
+      ],
+      "patches": [],
+      "insights": {
+        "triageAdvice": null
+      },
+      "language": "java",
+      "severity": "high",
+      "cvssScore": 8.7,
+      "functions": [],
+      "malicious": false,
+      "isDisputed": false,
+      "moduleName": "io.grpc:grpc-netty-shaded",
+      "references": [
+        {
+          "url": "https://github.com/grpc/grpc-java/commit/6462ef9a11980e168c21d90bbc7245c728fd1a7a",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/netty/netty/commit/009bd17b38a39fb1eecf9d22ea8ae8108afaac59",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/netty/netty/commit/350da8750a44e7d31bc1bb9957dc006055cdfe35",
+          "title": "GitHub Commit"
+        }
+      ],
+      "cvssDetails": [
+        {
+          "assigner": "NVD",
+          "severity": "high",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "cvssV3BaseScore": 7.5,
+          "modificationTime": "2025-09-11T01:13:24.093098Z"
+        },
+        {
+          "assigner": "Red Hat",
+          "severity": "high",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "cvssV3BaseScore": 7.5,
+          "modificationTime": "2025-08-16T13:34:41.193101Z"
+        },
+        {
+          "assigner": "SUSE",
+          "severity": "high",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "cvssV3BaseScore": 7.5,
+          "modificationTime": "2025-09-10T16:08:53.515119Z"
+        }
+      ],
+      "cvssSources": [
+        {
+          "type": "primary",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+          "assigner": "Snyk",
+          "severity": "high",
+          "baseScore": 8.7,
+          "cvssVersion": "4.0",
+          "modificationTime": "2025-10-31T10:55:57.641610Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "assigner": "Snyk",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-10-31T10:55:57.641610Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "assigner": "NVD",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-09-11T01:13:24.093098Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "assigner": "Red Hat",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-08-16T13:34:41.193101Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "assigner": "SUSE",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-09-10T16:08:53.515119Z"
+        }
+      ],
+      "description": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling through the improper handling of concurrently active streams per connection. An attacker can cause resource exhaustion and disrupt service availability by rapidly sending crafted frames, such as `WINDOW_UPDATE`, `HEADERS`, or `PRIORITY`, that manipulate the server's stream reset logic, leading to unbounded concurrent stream processing.\n## Remediation\nUpgrade `io.grpc:grpc-netty-shaded` to version 1.75.0 or higher.\n## References\n- [GitHub Commit](https://github.com/grpc/grpc-java/commit/6462ef9a11980e168c21d90bbc7245c728fd1a7a)\n- [GitHub Commit](https://github.com/netty/netty/commit/009bd17b38a39fb1eecf9d22ea8ae8108afaac59)\n- [GitHub Commit](https://github.com/netty/netty/commit/350da8750a44e7d31bc1bb9957dc006055cdfe35)\n",
+      "epssDetails": {
+        "percentile": "0.23312",
+        "probability": "0.00076",
+        "modelVersion": "v2025.03.14"
+      },
+      "identifiers": {
+        "CVE": [
+          "CVE-2025-55163"
+        ],
+        "CWE": [
+          "CWE-770"
+        ],
+        "GHSA": [
+          "GHSA-prj3-ccx8-p6x4"
+        ]
+      },
+      "packageName": "io.grpc:grpc-netty-shaded",
+      "proprietary": false,
+      "creationTime": "2025-10-31T10:55:33.703004Z",
+      "functions_new": [],
+      "alternativeIds": [],
+      "disclosureTime": "2025-08-13T19:06:56Z",
+      "exploitDetails": {
+        "sources": [],
+        "maturityLevels": [
+          {
+            "type": "secondary",
+            "level": "Not Defined",
+            "format": "CVSSv3"
+          },
+          {
+            "type": "primary",
+            "level": "Not Defined",
+            "format": "CVSSv4"
+          }
+        ]
+      },
+      "packageManager": "maven",
+      "mavenModuleName": {
+        "groupId": "io.grpc",
+        "artifactId": "grpc-netty-shaded"
+      },
+      "publicationTime": "2025-10-31T10:55:33.909141Z",
+      "severityBasedOn": "CVSS",
+      "modificationTime": "2025-10-31T10:55:57.641610Z",
+      "socialTrendAlert": false,
+      "severityWithCritical": "high",
+      "from": [
+        "com.cloudbees.compliance.plugins:zap@2.6.6",
+        "com.cloudbees.compliance.plugins:service-impl@2.2.24",
+        "com.cloudbees.compliance.service:chplugin-java@1.9.4",
+        "io.grpc:grpc-netty-shaded@1.43.0"
+      ],
+      "upgradePath": [],
+      "isUpgradable": false,
+      "isPatchable": false,
+      "name": "io.grpc:grpc-netty-shaded",
+      "version": "1.43.0"
+    },
+    {
+      "id": "SNYK-JAVA-ORGAPACHETOMCATEMBED-13723930",
+      "title": "Improper Resource Shutdown or Release",
+      "CVSSv3": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "credit": [
+        "sw0rd1ight"
+      ],
+      "semver": {
+        "vulnerable": [
+          "[,9.0.110)",
+          "[10.0.0-M1,10.1.47)",
+          "[11.0.0-M1,11.0.12)"
+        ]
+      },
+      "exploit": "Not Defined",
+      "fixedIn": [
+        "9.0.110",
+        "10.1.47",
+        "11.0.12"
+      ],
+      "patches": [],
+      "insights": {
+        "triageAdvice": null
+      },
+      "language": "java",
+      "severity": "medium",
+      "cvssScore": 6,
+      "functions": [],
+      "malicious": false,
+      "isDisputed": false,
+      "moduleName": "org.apache.tomcat.embed:tomcat-embed-core",
+      "references": [
+        {
+          "url": "https://lists.apache.org/thread/wm9mx8brmx9g4zpywm06ryrtvd3160pp",
+          "title": "Apache Mail"
+        },
+        {
+          "url": "https://github.com/apache/tomcat/commit/1cdf5f730ede75a0759492f179ac21ca4ff68e06",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/apache/tomcat/commit/af6e9181620304c0d818121c29c074e1330610d0",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/apache/tomcat/commit/afa422bd7ca1eef0f507259c682fd876494d9c3b",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2406588",
+          "title": "Red Hat Bugzilla Bug"
+        },
+        {
+          "url": "https://tomcat.apache.org/security-11.html%23Fixed_in_Apache_Tomcat_11.0.12",
+          "title": "Vulnerability Advisory"
+        }
+      ],
+      "cvssDetails": [
+        {
+          "assigner": "Red Hat",
+          "severity": "medium",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "cvssV3BaseScore": 5.3,
+          "modificationTime": "2025-10-28T05:32:00.322558Z"
+        },
+        {
+          "assigner": "SUSE",
+          "severity": "medium",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "cvssV3BaseScore": 5.3,
+          "modificationTime": "2025-11-13T11:10:53.060933Z"
+        }
+      ],
+      "cvssSources": [
+        {
+          "type": "primary",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+          "assigner": "Snyk",
+          "severity": "medium",
+          "baseScore": 6,
+          "cvssVersion": "4.0",
+          "modificationTime": "2025-10-28T14:35:15.072620Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "assigner": "Snyk",
+          "severity": "medium",
+          "baseScore": 5.3,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-10-28T14:35:15.072620Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "assigner": "Red Hat",
+          "severity": "medium",
+          "baseScore": 5.3,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-10-28T05:32:00.322558Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "assigner": "SUSE",
+          "severity": "medium",
+          "baseScore": 5.3,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-11-13T11:10:53.060933Z"
+        }
+      ],
+      "description": "## Overview\n[org.apache.tomcat.embed:tomcat-embed-core](https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core) is a Core Tomcat implementation.\n\nAffected versions of this package are vulnerable to Improper Resource Shutdown or Release due to the delayed cleaning of multipart upload temporary files. An attacker can cause a denial-of-service by sending crafted requests that create temporary copies of uploaded parts faster than the garbage collector clears them, leading to resource exhaustion.\r\n\r\n**Note:** Successful exploitation depends on the JVM settings, the application memory usage, and application load.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `org.apache.tomcat.embed:tomcat-embed-core` to version 9.0.110, 10.1.47, 11.0.12 or higher.\n## References\n- [Apache Mail](https://lists.apache.org/thread/wm9mx8brmx9g4zpywm06ryrtvd3160pp)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/1cdf5f730ede75a0759492f179ac21ca4ff68e06)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/af6e9181620304c0d818121c29c074e1330610d0)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/afa422bd7ca1eef0f507259c682fd876494d9c3b)\n- [Red Hat Bugzilla Bug](https://bugzilla.redhat.com/show_bug.cgi?id=2406588)\n- [Vulnerability Advisory](https://tomcat.apache.org/security-11.html#Fixed_in_Apache_Tomcat_11.0.12)\n",
+      "epssDetails": {
+        "percentile": "0.13369",
+        "probability": "0.00044",
+        "modelVersion": "v2025.03.14"
+      },
+      "identifiers": {
+        "CVE": [
+          "CVE-2025-61795"
+        ],
+        "CWE": [
+          "CWE-404"
+        ]
+      },
+      "packageName": "org.apache.tomcat.embed:tomcat-embed-core",
+      "proprietary": false,
+      "creationTime": "2025-10-28T12:20:53.961583Z",
+      "functions_new": [],
+      "alternativeIds": [],
+      "disclosureTime": "2025-10-27T17:30:28Z",
+      "exploitDetails": {
+        "sources": [],
+        "maturityLevels": [
+          {
+            "type": "secondary",
+            "level": "Not Defined",
+            "format": "CVSSv3"
+          },
+          {
+            "type": "primary",
+            "level": "Not Defined",
+            "format": "CVSSv4"
+          }
+        ]
+      },
+      "packageManager": "maven",
+      "mavenModuleName": {
+        "groupId": "org.apache.tomcat.embed",
+        "artifactId": "tomcat-embed-core"
+      },
+      "publicationTime": "2025-10-28T14:35:15.060605Z",
+      "severityBasedOn": "CVSS",
+      "modificationTime": "2025-11-13T11:10:53.060933Z",
+      "socialTrendAlert": false,
+      "severityWithCritical": "medium",
+      "from": [
+        "com.cloudbees.compliance.plugins:zap@2.6.6",
+        "org.apache.tomcat.embed:tomcat-embed-core@11.0.10"
+      ],
+      "upgradePath": [
+        false,
+        "org.apache.tomcat.embed:tomcat-embed-core@11.0.12"
+      ],
+      "isUpgradable": true,
+      "isPatchable": false,
+      "name": "org.apache.tomcat.embed:tomcat-embed-core",
+      "version": "11.0.10"
+    },
+    {
+      "id": "SNYK-JAVA-ORGAPACHETOMCATEMBED-13733966",
+      "title": "Relative Path Traversal",
+      "CVSSv3": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H/E:P",
+      "credit": [
+        "Chumy Tsai"
+      ],
+      "semver": {
+        "vulnerable": [
+          "[,9.0.109)",
+          "[10.1.0-M1,10.1.45)",
+          "[11.0.0-M1,11.0.11)"
+        ]
+      },
+      "exploit": "Proof of Concept",
+      "fixedIn": [
+        "9.0.109",
+        "10.1.45",
+        "11.0.11"
+      ],
+      "patches": [],
+      "insights": {
+        "triageAdvice": null
+      },
+      "language": "java",
+      "severity": "high",
+      "cvssScore": 7.7,
+      "functions": [],
+      "malicious": false,
+      "isDisputed": false,
+      "moduleName": "org.apache.tomcat.embed:tomcat-embed-core",
+      "references": [
+        {
+          "url": "https://lists.apache.org/thread/n05kjcwyj1s45ovs8ll1qrrojhfb1tog",
+          "title": "Apache Mailing List"
+        },
+        {
+          "url": "https://tomcat.apache.org/security-10.html%23Fixed_in_Apache_Tomcat_10.1.45",
+          "title": "Apache Tomcat Advisory"
+        },
+        {
+          "url": "https://tomcat.apache.org/security-11.html%23Fixed_in_Apache_Tomcat_11.0.11",
+          "title": "Apache Tomcat Advisory"
+        },
+        {
+          "url": "https://tomcat.apache.org/security-9.html%23Fixed_in_Apache_Tomcat_9.0.109",
+          "title": "Apache Tomcat Advisory"
+        },
+        {
+          "url": "https://github.com/apache/tomcat/commit/130d36d8492ef9e4eb22952c17c92423cb35fd06",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/apache/tomcat/commit/b5042622b8b78340ae65403c55dcb9c7416924df",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/apache/tomcat/commit/fec06c610ed7466b401e29cc567a58aee5ed826a",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/masahiro331/CVE-2025-55752",
+          "title": "PoC in GitHub"
+        }
+      ],
+      "cvssDetails": [
+        {
+          "assigner": "Red Hat",
+          "severity": "high",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
+          "cvssV3BaseScore": 7.5,
+          "modificationTime": "2025-10-29T04:48:35.034735Z"
+        },
+        {
+          "assigner": "SUSE",
+          "severity": "high",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
+          "cvssV3BaseScore": 7.5,
+          "modificationTime": "2025-11-13T11:10:38.098739Z"
+        }
+      ],
+      "cvssSources": [
+        {
+          "type": "primary",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:P",
+          "assigner": "Snyk",
+          "severity": "high",
+          "baseScore": 7.7,
+          "cvssVersion": "4.0",
+          "modificationTime": "2025-10-29T10:18:29.428538Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H/E:P",
+          "assigner": "Snyk",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-10-29T10:18:29.428538Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
+          "assigner": "Red Hat",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-10-29T04:48:35.034735Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
+          "assigner": "SUSE",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-11-13T11:10:38.098739Z"
+        }
+      ],
+      "description": "## Overview\n[org.apache.tomcat.embed:tomcat-embed-core](https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core) is a Core Tomcat implementation.\n\nAffected versions of this package are vulnerable to Relative Path Traversal via the URL normalization. An attacker can bypass security constraints and access restricted directories such as `/WEB-INF/` and `/META-INF/` by manipulating the request URI. If PUT requests are also enabled then malicious files could be uploaded leading to remote code execution.\r\n\r\n**Note:**\r\n\r\n1) Older, EOL versions may also be affected.\r\n2) PUT requests are normally limited to trusted users and it is considered unlikely that PUT requests would be enabled in conjunction with a rewrite that manipulated the URI.\n## Remediation\nUpgrade `org.apache.tomcat.embed:tomcat-embed-core` to version 9.0.109, 10.1.45, 11.0.11 or higher.\n## References\n- [Apache Mailing List](https://lists.apache.org/thread/n05kjcwyj1s45ovs8ll1qrrojhfb1tog)\n- [Apache Tomcat Advisory](https://tomcat.apache.org/security-10.html#Fixed_in_Apache_Tomcat_10.1.45)\n- [Apache Tomcat Advisory](https://tomcat.apache.org/security-11.html#Fixed_in_Apache_Tomcat_11.0.11)\n- [Apache Tomcat Advisory](https://tomcat.apache.org/security-9.html#Fixed_in_Apache_Tomcat_9.0.109)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/130d36d8492ef9e4eb22952c17c92423cb35fd06)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/b5042622b8b78340ae65403c55dcb9c7416924df)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/fec06c610ed7466b401e29cc567a58aee5ed826a)\n- [PoC in GitHub](https://github.com/masahiro331/CVE-2025-55752)\n",
+      "epssDetails": {
+        "percentile": "0.43856",
+        "probability": "0.00213",
+        "modelVersion": "v2025.03.14"
+      },
+      "identifiers": {
+        "CVE": [
+          "CVE-2025-55752"
+        ],
+        "CWE": [
+          "CWE-23"
+        ],
+        "GHSA": [
+          "GHSA-wmwf-9ccg-fff5"
+        ]
+      },
+      "packageName": "org.apache.tomcat.embed:tomcat-embed-core",
+      "proprietary": false,
+      "creationTime": "2025-10-29T09:50:18.221900Z",
+      "functions_new": [],
+      "alternativeIds": [],
+      "disclosureTime": "2025-10-27T18:31:13Z",
+      "exploitDetails": {
+        "sources": [
+          "PoC in GitHub"
+        ],
+        "maturityLevels": [
+          {
+            "type": "secondary",
+            "level": "Proof of Concept",
+            "format": "CVSSv3"
+          },
+          {
+            "type": "primary",
+            "level": "Proof of Concept",
+            "format": "CVSSv4"
+          }
+        ]
+      },
+      "packageManager": "maven",
+      "mavenModuleName": {
+        "groupId": "org.apache.tomcat.embed",
+        "artifactId": "tomcat-embed-core"
+      },
+      "publicationTime": "2025-10-29T10:18:29.155755Z",
+      "severityBasedOn": "CVSS",
+      "modificationTime": "2025-11-13T11:10:38.098739Z",
+      "socialTrendAlert": false,
+      "severityWithCritical": "high",
+      "from": [
+        "com.cloudbees.compliance.plugins:zap@2.6.6",
+        "org.apache.tomcat.embed:tomcat-embed-core@11.0.10"
+      ],
+      "upgradePath": [
+        false,
+        "org.apache.tomcat.embed:tomcat-embed-core@11.0.11"
+      ],
+      "isUpgradable": true,
+      "isPatchable": false,
+      "name": "org.apache.tomcat.embed:tomcat-embed-core",
+      "version": "11.0.10"
+    },
+    {
+      "id": "SNYK-JAVA-ORGBOUNCYCASTLE-11785881",
+      "title": "Allocation of Resources Without Limits or Throttling",
+      "CVSSv3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "credit": [
+        "Bing Shi"
+      ],
+      "semver": {
+        "vulnerable": [
+          "[,2.1.0)"
+        ]
+      },
+      "exploit": "Not Defined",
+      "fixedIn": [
+        "2.1.0"
+      ],
+      "patches": [],
+      "insights": {
+        "triageAdvice": null
+      },
+      "language": "java",
+      "severity": "medium",
+      "cvssScore": 6.3,
+      "functions": [],
+      "malicious": false,
+      "isDisputed": false,
+      "moduleName": "org.bouncycastle:bc-fips",
+      "references": [
+        {
+          "url": "https://github.com/bcgit/bc-java/commit/3790993df5d28f661a64439a8664343437ed3865",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902025%E2%80%908885",
+          "title": "GitHub Wiki"
+        }
+      ],
+      "cvssDetails": [
+        {
+          "assigner": "Red Hat",
+          "severity": "medium",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "cvssV3BaseScore": 5.3,
+          "modificationTime": "2025-08-13T10:39:49.572633Z"
+        }
+      ],
+      "cvssSources": [
+        {
+          "type": "primary",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+          "assigner": "Snyk",
+          "severity": "medium",
+          "baseScore": 6.3,
+          "cvssVersion": "4.0",
+          "modificationTime": "2025-08-13T06:49:33.798421Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "assigner": "Snyk",
+          "severity": "low",
+          "baseScore": 3.7,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-08-13T06:49:33.798421Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "assigner": "Red Hat",
+          "severity": "medium",
+          "baseScore": 5.3,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-08-13T10:39:49.572633Z"
+        }
+      ],
+      "description": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling via the `ASN1ObjectIdentifier`. An attacker can cause excessive resource consumption by submitting specially crafted ASN.1 Object Identifiers, potentially leading to service disruption.\r\n\r\n**Note:** This issue only applies to applications which do consume unvetted, or otherwise unvalidated, ASN.1 encodings.\n## Remediation\nUpgrade `org.bouncycastle:bc-fips` to version 2.1.0 or higher.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/3790993df5d28f661a64439a8664343437ed3865)\n- [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902025%E2%80%908885)\n",
+      "epssDetails": {
+        "percentile": "0.19719",
+        "probability": "0.00063",
+        "modelVersion": "v2025.03.14"
+      },
+      "identifiers": {
+        "CVE": [
+          "CVE-2025-8885"
+        ],
+        "CWE": [
+          "CWE-770"
+        ],
+        "GHSA": [
+          "GHSA-67mf-3cr5-8w23"
+        ]
+      },
+      "packageName": "org.bouncycastle:bc-fips",
+      "proprietary": false,
+      "creationTime": "2025-08-13T06:39:01.724126Z",
+      "functions_new": [],
+      "alternativeIds": [],
+      "disclosureTime": "2025-08-12T09:40:42Z",
+      "exploitDetails": {
+        "sources": [],
+        "maturityLevels": [
+          {
+            "type": "secondary",
+            "level": "Not Defined",
+            "format": "CVSSv3"
+          },
+          {
+            "type": "primary",
+            "level": "Not Defined",
+            "format": "CVSSv4"
+          }
+        ]
+      },
+      "packageManager": "maven",
+      "mavenModuleName": {
+        "groupId": "org.bouncycastle",
+        "artifactId": "bc-fips"
+      },
+      "publicationTime": "2025-08-13T06:39:01.980239Z",
+      "severityBasedOn": "CVSS",
+      "modificationTime": "2025-08-13T10:39:49.572633Z",
+      "socialTrendAlert": false,
+      "severityWithCritical": "medium",
+      "from": [
+        "com.cloudbees.compliance.plugins:zap@2.6.6",
+        "com.cloudbees.compliance.plugins:service-impl@2.2.24",
+        "com.cloudbees.compliance.plugins:service-util@2.0.24",
+        "org.bouncycastle:bctls-fips@1.0.19",
+        "org.bouncycastle:bc-fips@1.0.2.6"
+      ],
+      "upgradePath": [],
+      "isUpgradable": false,
+      "isPatchable": false,
+      "name": "org.bouncycastle:bc-fips",
+      "version": "1.0.2.6"
+    },
+    {
+      "id": "SNYK-JAVA-ORGBOUNCYCASTLE-11789688",
+      "title": "Allocation of Resources Without Limits or Throttling",
+      "CVSSv3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "credit": [
+        "Unknown"
+      ],
+      "semver": {
+        "vulnerable": [
+          "[1.74,1.79)"
+        ]
+      },
+      "exploit": "Not Defined",
+      "fixedIn": [
+        "1.79"
+      ],
+      "patches": [],
+      "insights": {
+        "triageAdvice": null
+      },
+      "language": "java",
+      "severity": "medium",
+      "cvssScore": 6.3,
+      "functions": [],
+      "malicious": false,
+      "isDisputed": false,
+      "moduleName": "org.bouncycastle:bcpkix-jdk18on",
+      "references": [
+        {
+          "url": "https://github.com/bcgit/bc-java/commit/310b30a4fbf36d13f6cc201ffa7771715641e67e",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/bcgit/bc-java/commit/ff444a479942d88de64004dc82c3ee32a9e9075a",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902025%E2%80%908916",
+          "title": "GitHub Wiki"
+        }
+      ],
+      "cvssDetails": [
+        {
+          "assigner": "Red Hat",
+          "severity": "medium",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "cvssV3BaseScore": 5.3,
+          "modificationTime": "2025-08-14T05:59:40.160213Z"
+        }
+      ],
+      "cvssSources": [
+        {
+          "type": "primary",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+          "assigner": "Snyk",
+          "severity": "medium",
+          "baseScore": 6.3,
+          "cvssVersion": "4.0",
+          "modificationTime": "2025-08-13T14:36:27.856452Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "assigner": "Snyk",
+          "severity": "low",
+          "baseScore": 3.7,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-08-13T14:36:27.856452Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "assigner": "Red Hat",
+          "severity": "medium",
+          "baseScore": 5.3,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-08-14T05:59:40.160213Z"
+        }
+      ],
+      "description": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling due to improper processing of large name constraint structures in `PKIXCertPathReviewer`. An attacker can cause excessive resource allocation by submitting specially crafted ASN.1 objects, potentially leading to service disruption. \r\n\r\n## Workaround\r\n\r\nThis vulnerability can be mitigated by limiting the size of ASN.1 objects that can be loaded from untrusted sources, thereby capping the maximum size of a Name Constraints structure.\n## Remediation\nUpgrade `org.bouncycastle:bcpkix-jdk18on` to version 1.79 or higher.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/310b30a4fbf36d13f6cc201ffa7771715641e67e)\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/ff444a479942d88de64004dc82c3ee32a9e9075a)\n- [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902025%E2%80%908916)\n",
+      "epssDetails": {
+        "percentile": "0.19719",
+        "probability": "0.00063",
+        "modelVersion": "v2025.03.14"
+      },
+      "identifiers": {
+        "CVE": [
+          "CVE-2025-8916"
+        ],
+        "CWE": [
+          "CWE-770"
+        ]
+      },
+      "packageName": "org.bouncycastle:bcpkix-jdk18on",
+      "proprietary": false,
+      "creationTime": "2025-08-13T13:44:52.705293Z",
+      "functions_new": [],
+      "alternativeIds": [],
+      "disclosureTime": "2025-08-13T09:52:08Z",
+      "exploitDetails": {
+        "sources": [],
+        "maturityLevels": [
+          {
+            "type": "secondary",
+            "level": "Not Defined",
+            "format": "CVSSv3"
+          },
+          {
+            "type": "primary",
+            "level": "Not Defined",
+            "format": "CVSSv4"
+          }
+        ]
+      },
+      "packageManager": "maven",
+      "mavenModuleName": {
+        "groupId": "org.bouncycastle",
+        "artifactId": "bcpkix-jdk18on"
+      },
+      "publicationTime": "2025-08-13T14:36:27.846983Z",
+      "severityBasedOn": "CVSS",
+      "modificationTime": "2025-08-14T05:59:40.160213Z",
+      "socialTrendAlert": false,
+      "severityWithCritical": "medium",
+      "from": [
+        "com.cloudbees.compliance.plugins:zap@2.6.6",
+        "com.cloudbees.compliance.plugins:service-impl@2.2.24",
+        "org.bouncycastle:bcpkix-jdk18on@1.78.1"
+      ],
+      "upgradePath": [],
+      "isUpgradable": false,
+      "isPatchable": false,
+      "name": "org.bouncycastle:bcpkix-jdk18on",
+      "version": "1.78.1"
+    },
+    {
+      "id": "SNYK-JAVA-ORGBOUNCYCASTLE-11789695",
+      "title": "Allocation of Resources Without Limits or Throttling",
+      "CVSSv3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "credit": [
+        "Unknown"
+      ],
+      "semver": {
+        "vulnerable": [
+          "[,1.79)"
+        ]
+      },
+      "exploit": "Not Defined",
+      "fixedIn": [
+        "1.79"
+      ],
+      "patches": [],
+      "insights": {
+        "triageAdvice": null
+      },
+      "language": "java",
+      "severity": "medium",
+      "cvssScore": 6.3,
+      "functions": [],
+      "malicious": false,
+      "isDisputed": false,
+      "moduleName": "org.bouncycastle:bcprov-jdk18on",
+      "references": [
+        {
+          "url": "https://github.com/bcgit/bc-java/commit/310b30a4fbf36d13f6cc201ffa7771715641e67e",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/bcgit/bc-java/commit/ff444a479942d88de64004dc82c3ee32a9e9075a",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902025%E2%80%908916",
+          "title": "GitHub Wiki"
+        }
+      ],
+      "cvssDetails": [
+        {
+          "assigner": "Red Hat",
+          "severity": "medium",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "cvssV3BaseScore": 5.3,
+          "modificationTime": "2025-08-14T05:59:40.160213Z"
+        }
+      ],
+      "cvssSources": [
+        {
+          "type": "primary",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+          "assigner": "Snyk",
+          "severity": "medium",
+          "baseScore": 6.3,
+          "cvssVersion": "4.0",
+          "modificationTime": "2025-08-13T14:36:30.027214Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "assigner": "Snyk",
+          "severity": "low",
+          "baseScore": 3.7,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-08-13T14:36:30.027214Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "assigner": "Red Hat",
+          "severity": "medium",
+          "baseScore": 5.3,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-08-14T05:59:40.160213Z"
+        }
+      ],
+      "description": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling due to improper processing of large name constraint structures in `PKIXCertPathReviewer`. An attacker can cause excessive resource allocation by submitting specially crafted ASN.1 objects, potentially leading to service disruption. \r\n\r\n## Workaround\r\n\r\nThis vulnerability can be mitigated by limiting the size of ASN.1 objects that can be loaded from untrusted sources, thereby capping the maximum size of a Name Constraints structure.\n## Remediation\nUpgrade `org.bouncycastle:bcprov-jdk18on` to version 1.79 or higher.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/310b30a4fbf36d13f6cc201ffa7771715641e67e)\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/ff444a479942d88de64004dc82c3ee32a9e9075a)\n- [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902025%E2%80%908916)\n",
+      "epssDetails": {
+        "percentile": "0.19719",
+        "probability": "0.00063",
+        "modelVersion": "v2025.03.14"
+      },
+      "identifiers": {
+        "CVE": [
+          "CVE-2025-8916"
+        ],
+        "CWE": [
+          "CWE-770"
+        ]
+      },
+      "packageName": "org.bouncycastle:bcprov-jdk18on",
+      "proprietary": false,
+      "creationTime": "2025-08-13T13:44:55.865664Z",
+      "functions_new": [],
+      "alternativeIds": [],
+      "disclosureTime": "2025-08-13T09:52:08Z",
+      "exploitDetails": {
+        "sources": [],
+        "maturityLevels": [
+          {
+            "type": "secondary",
+            "level": "Not Defined",
+            "format": "CVSSv3"
+          },
+          {
+            "type": "primary",
+            "level": "Not Defined",
+            "format": "CVSSv4"
+          }
+        ]
+      },
+      "packageManager": "maven",
+      "mavenModuleName": {
+        "groupId": "org.bouncycastle",
+        "artifactId": "bcprov-jdk18on"
+      },
+      "publicationTime": "2025-08-13T14:36:30.018359Z",
+      "severityBasedOn": "CVSS",
+      "modificationTime": "2025-08-14T05:59:40.160213Z",
+      "socialTrendAlert": false,
+      "severityWithCritical": "medium",
+      "from": [
+        "com.cloudbees.compliance.plugins:zap@2.6.6",
+        "com.cloudbees.compliance.plugins:service-impl@2.2.24",
+        "org.bouncycastle:bcprov-jdk18on@1.78.1"
+      ],
+      "upgradePath": [],
+      "isUpgradable": false,
+      "isPatchable": false,
+      "name": "org.bouncycastle:bcprov-jdk18on",
+      "version": "1.78.1"
+    },
+    {
+      "id": "snyk:lic:maven:ch.qos.logback:logback-classic:(EPL-1.0_OR_LGPL-2.1)",
+      "type": "license",
+      "title": "Dual license: EPL-1.0, LGPL-2.1",
+      "semver": {
+        "vulnerable": [
+          "[0.9.18,)"
+        ]
+      },
+      "license": "(EPL-1.0 OR LGPL-2.1)",
+      "language": "java",
+      "description": "Dual license: EPL-1.0, LGPL-2.1",
+      "packageName": "ch.qos.logback:logback-classic",
+      "creationTime": "2025-03-09T17:47:17.961Z",
+      "packageManager": "maven",
+      "publicationTime": "2025-03-09T17:47:17.961Z",
+      "severity": "medium",
+      "severityWithCritical": "medium",
+      "from": [
+        "com.cloudbees.compliance.plugins:zap@2.6.6",
+        "org.springframework.boot:spring-boot-starter@3.5.5",
+        "org.springframework.boot:spring-boot-starter-logging@3.5.5",
+        "ch.qos.logback:logback-classic@1.5.18"
+      ],
+      "upgradePath": [],
+      "isUpgradable": false,
+      "isPatchable": false,
+      "name": "ch.qos.logback:logback-classic",
+      "version": "1.5.18"
+    }
+  ],
+  "ok": false,
+  "dependencyCount": 178,
+  "org": "cloudbees-compliance-partner-development",
+  "policy": "# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.25.1\nignore: {}\npatch: {}\n",
+  "isPrivate": true,
+  "licensesPolicy": {
+    "severities": {},
+    "orgLicenseRules": {
+      "AGPL-1.0": {
+        "licenseType": "AGPL-1.0",
+        "severity": "high",
+        "instructions": ""
+      },
+      "AGPL-3.0": {
+        "licenseType": "AGPL-3.0",
+        "severity": "high",
+        "instructions": ""
+      },
+      "Artistic-1.0": {
+        "licenseType": "Artistic-1.0",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "Artistic-2.0": {
+        "licenseType": "Artistic-2.0",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "CDDL-1.0": {
+        "licenseType": "CDDL-1.0",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "CPOL-1.02": {
+        "licenseType": "CPOL-1.02",
+        "severity": "high",
+        "instructions": ""
+      },
+      "EPL-1.0": {
+        "licenseType": "EPL-1.0",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "GPL-2.0": {
+        "licenseType": "GPL-2.0",
+        "severity": "high",
+        "instructions": ""
+      },
+      "GPL-3.0": {
+        "licenseType": "GPL-3.0",
+        "severity": "high",
+        "instructions": ""
+      },
+      "LGPL-2.0": {
+        "licenseType": "LGPL-2.0",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "LGPL-2.1": {
+        "licenseType": "LGPL-2.1",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "LGPL-3.0": {
+        "licenseType": "LGPL-3.0",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "MPL-1.1": {
+        "licenseType": "MPL-1.1",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "MPL-2.0": {
+        "licenseType": "MPL-2.0",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "MS-RL": {
+        "licenseType": "MS-RL",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "SimPL-2.0": {
+        "licenseType": "SimPL-2.0",
+        "severity": "high",
+        "instructions": ""
+      }
+    }
+  },
+  "packageManager": "maven",
+  "ignoreSettings": {
+    "adminOnly": false,
+    "reasonRequired": false,
+    "disregardFilesystemIgnores": false
+  },
+  "summary": "10 vulnerable dependency paths",
+  "remediation": {
+    "unresolved": [
+      {
+        "id": "snyk:lic:maven:ch.qos.logback:logback-core:(EPL-1.0_OR_LGPL-2.1)",
+        "type": "license",
+        "title": "Dual license: EPL-1.0, LGPL-2.1",
+        "semver": {
+          "vulnerable": [
+            "[0.9.18,)"
+          ]
+        },
+        "license": "(EPL-1.0 OR LGPL-2.1)",
+        "language": "java",
+        "description": "Dual license: EPL-1.0, LGPL-2.1",
+        "packageName": "ch.qos.logback:logback-core",
+        "creationTime": "2025-03-09T16:21:02.569Z",
+        "packageManager": "maven",
+        "publicationTime": "2025-03-09T16:21:02.569Z",
+        "severity": "medium",
+        "from": [
+          "com.cloudbees.compliance.plugins:zap@2.6.6",
+          "org.springframework.boot:spring-boot-starter@3.5.5",
+          "org.springframework.boot:spring-boot-starter-logging@3.5.5",
+          "ch.qos.logback:logback-classic@1.5.18",
+          "ch.qos.logback:logback-core@1.5.18"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "isPinnable": false,
+        "isRuntime": false,
+        "name": "ch.qos.logback:logback-core",
+        "version": "1.5.18",
+        "severityWithCritical": "medium"
+      },
+      {
+        "id": "SNYK-JAVA-COMGOOGLEPROTOBUF-8055228",
+        "title": "Stack-based Buffer Overflow",
+        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "credit": [
+          "Alexis Challande"
+        ],
+        "semver": {
+          "vulnerable": [
+            "[,3.25.5)",
+            "[4.0.0-rc-1,4.27.5)",
+            "[4.28.0-RC1,4.28.2)"
+          ]
+        },
+        "exploit": "Not Defined",
+        "fixedIn": [
+          "3.25.5",
+          "4.27.5",
+          "4.28.2"
+        ],
+        "patches": [],
+        "insights": {
+          "triageAdvice": null
+        },
+        "language": "java",
+        "severity": "high",
+        "cvssScore": 8.7,
+        "functions": [],
+        "malicious": false,
+        "isDisputed": false,
+        "moduleName": "com.google.protobuf:protobuf-java-util",
+        "references": [
+          {
+            "url": "https://github.com/protocolbuffers/protobuf/commit/ac9fb5b4c71b0dd80985b27684e265d1f03abf46",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/protocolbuffers/protobuf/commit/cc8b3483a5584b3301e3d43d17eb59704857ffaa",
+            "title": "GitHub Commit"
+          }
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "NVD",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2025-07-31T01:13:20.414462Z"
+          },
+          {
+            "assigner": "Red Hat",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-09-19T13:39:54.843878Z"
+          },
+          {
+            "assigner": "SUSE",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-10-23T11:01:52.842400Z"
+          }
+        ],
+        "cvssSources": [
+          {
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 8.7,
+            "cvssVersion": "4.0",
+            "modificationTime": "2025-03-12T11:26:25.802904Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2025-03-12T11:26:25.802904Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "NVD",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2025-07-31T01:13:20.414462Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Red Hat",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-09-19T13:39:54.843878Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "SUSE",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-10-23T11:01:52.842400Z"
+          }
+        ],
+        "description": "## Overview\n\nAffected versions of this package are vulnerable to Stack-based Buffer Overflow via the parsing of nested groups or series of `SGROUP` tags as unknown fields with `DiscardUnknownFieldsParser` or Java Protobuf Lite parser, or against Protobuf map fields. An attacker can cause infinite recursion by sending malicious Protocol Buffer data.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `com.google.protobuf:protobuf-java-util` to version 3.25.5, 4.27.5, 4.28.2 or higher.\n## References\n- [GitHub Commit](https://github.com/protocolbuffers/protobuf/commit/ac9fb5b4c71b0dd80985b27684e265d1f03abf46)\n- [GitHub Commit](https://github.com/protocolbuffers/protobuf/commit/cc8b3483a5584b3301e3d43d17eb59704857ffaa)\n",
+        "epssDetails": {
+          "percentile": "0.19144",
+          "probability": "0.00061",
+          "modelVersion": "v2025.03.14"
+        },
+        "identifiers": {
+          "CVE": [
+            "CVE-2024-7254"
+          ],
+          "CWE": [
+            "CWE-121"
+          ],
+          "GHSA": [
+            "GHSA-735f-pc8j-v9w8"
+          ]
+        },
+        "packageName": "com.google.protobuf:protobuf-java-util",
+        "proprietary": false,
+        "creationTime": "2024-09-19T06:54:49.399343Z",
+        "functions_new": [],
+        "alternativeIds": [],
+        "disclosureTime": "2024-09-19T00:46:47Z",
+        "exploitDetails": {
+          "sources": [],
+          "maturityLevels": [
+            {
+              "type": "secondary",
+              "level": "Not Defined",
+              "format": "CVSSv3"
+            },
+            {
+              "type": "primary",
+              "level": "Not Defined",
+              "format": "CVSSv4"
+            }
+          ]
+        },
+        "packageManager": "maven",
+        "mavenModuleName": {
+          "groupId": "com.google.protobuf",
+          "artifactId": "protobuf-java-util"
+        },
+        "publicationTime": "2024-09-19T07:20:18.128214Z",
+        "severityBasedOn": "CVSS",
+        "modificationTime": "2025-07-31T01:13:20.414462Z",
+        "socialTrendAlert": false,
+        "packagePopularityRank": 99,
+        "from": [
+          "com.cloudbees.compliance.plugins:zap@2.6.6",
+          "com.cloudbees.compliance.plugins:service-impl@2.2.24",
+          "io.github.lognet:grpc-spring-boot-starter@5.0.0",
+          "io.grpc:grpc-services@1.51.0",
+          "com.google.protobuf:protobuf-java-util@3.21.7"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "isPinnable": false,
+        "isRuntime": false,
+        "name": "com.google.protobuf:protobuf-java-util",
+        "version": "3.21.7",
+        "severityWithCritical": "high"
+      },
+      {
+        "id": "SNYK-JAVA-IOGRPC-13786834",
+        "title": "Allocation of Resources Without Limits or Throttling",
+        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "credit": [
+          "Gal Bar Nahum",
+          "Anat Bremler-Barr",
+          "Yaniv Harel"
+        ],
+        "semver": {
+          "vulnerable": [
+            "[,1.75.0)"
+          ]
+        },
+        "exploit": "Not Defined",
+        "fixedIn": [
+          "1.75.0"
+        ],
+        "patches": [],
+        "insights": {
+          "triageAdvice": null
+        },
+        "language": "java",
+        "severity": "high",
+        "cvssScore": 8.7,
+        "functions": [],
+        "malicious": false,
+        "isDisputed": false,
+        "moduleName": "io.grpc:grpc-netty-shaded",
+        "references": [
+          {
+            "url": "https://github.com/grpc/grpc-java/commit/6462ef9a11980e168c21d90bbc7245c728fd1a7a",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/netty/netty/commit/009bd17b38a39fb1eecf9d22ea8ae8108afaac59",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/netty/netty/commit/350da8750a44e7d31bc1bb9957dc006055cdfe35",
+            "title": "GitHub Commit"
+          }
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "NVD",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2025-09-11T01:13:24.093098Z"
+          },
+          {
+            "assigner": "Red Hat",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2025-08-16T13:34:41.193101Z"
+          },
+          {
+            "assigner": "SUSE",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2025-09-10T16:08:53.515119Z"
+          }
+        ],
+        "cvssSources": [
+          {
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 8.7,
+            "cvssVersion": "4.0",
+            "modificationTime": "2025-10-31T10:55:57.641610Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2025-10-31T10:55:57.641610Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "NVD",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2025-09-11T01:13:24.093098Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Red Hat",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2025-08-16T13:34:41.193101Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "SUSE",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2025-09-10T16:08:53.515119Z"
+          }
+        ],
+        "description": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling through the improper handling of concurrently active streams per connection. An attacker can cause resource exhaustion and disrupt service availability by rapidly sending crafted frames, such as `WINDOW_UPDATE`, `HEADERS`, or `PRIORITY`, that manipulate the server's stream reset logic, leading to unbounded concurrent stream processing.\n## Remediation\nUpgrade `io.grpc:grpc-netty-shaded` to version 1.75.0 or higher.\n## References\n- [GitHub Commit](https://github.com/grpc/grpc-java/commit/6462ef9a11980e168c21d90bbc7245c728fd1a7a)\n- [GitHub Commit](https://github.com/netty/netty/commit/009bd17b38a39fb1eecf9d22ea8ae8108afaac59)\n- [GitHub Commit](https://github.com/netty/netty/commit/350da8750a44e7d31bc1bb9957dc006055cdfe35)\n",
+        "epssDetails": {
+          "percentile": "0.23312",
+          "probability": "0.00076",
+          "modelVersion": "v2025.03.14"
+        },
+        "identifiers": {
+          "CVE": [
+            "CVE-2025-55163"
+          ],
+          "CWE": [
+            "CWE-770"
+          ],
+          "GHSA": [
+            "GHSA-prj3-ccx8-p6x4"
+          ]
+        },
+        "packageName": "io.grpc:grpc-netty-shaded",
+        "proprietary": false,
+        "creationTime": "2025-10-31T10:55:33.703004Z",
+        "functions_new": [],
+        "alternativeIds": [],
+        "disclosureTime": "2025-08-13T19:06:56Z",
+        "exploitDetails": {
+          "sources": [],
+          "maturityLevels": [
+            {
+              "type": "secondary",
+              "level": "Not Defined",
+              "format": "CVSSv3"
+            },
+            {
+              "type": "primary",
+              "level": "Not Defined",
+              "format": "CVSSv4"
+            }
+          ]
+        },
+        "packageManager": "maven",
+        "mavenModuleName": {
+          "groupId": "io.grpc",
+          "artifactId": "grpc-netty-shaded"
+        },
+        "publicationTime": "2025-10-31T10:55:33.909141Z",
+        "severityBasedOn": "CVSS",
+        "modificationTime": "2025-10-31T10:55:57.641610Z",
+        "socialTrendAlert": false,
+        "packagePopularityRank": 99,
+        "from": [
+          "com.cloudbees.compliance.plugins:zap@2.6.6",
+          "com.cloudbees.compliance.plugins:service-impl@2.2.24",
+          "com.cloudbees.compliance.service:chplugin-java@1.9.4",
+          "io.grpc:grpc-netty-shaded@1.43.0"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "isPinnable": false,
+        "isRuntime": false,
+        "name": "io.grpc:grpc-netty-shaded",
+        "version": "1.43.0",
+        "severityWithCritical": "high"
+      },
+      {
+        "id": "SNYK-JAVA-ORGBOUNCYCASTLE-11785881",
+        "title": "Allocation of Resources Without Limits or Throttling",
+        "CVSSv3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+        "credit": [
+          "Bing Shi"
+        ],
+        "semver": {
+          "vulnerable": [
+            "[,2.1.0)"
+          ]
+        },
+        "exploit": "Not Defined",
+        "fixedIn": [
+          "2.1.0"
+        ],
+        "patches": [],
+        "insights": {
+          "triageAdvice": null
+        },
+        "language": "java",
+        "severity": "medium",
+        "cvssScore": 6.3,
+        "functions": [],
+        "malicious": false,
+        "isDisputed": false,
+        "moduleName": "org.bouncycastle:bc-fips",
+        "references": [
+          {
+            "url": "https://github.com/bcgit/bc-java/commit/3790993df5d28f661a64439a8664343437ed3865",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902025%E2%80%908885",
+            "title": "GitHub Wiki"
+          }
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "Red Hat",
+            "severity": "medium",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+            "cvssV3BaseScore": 5.3,
+            "modificationTime": "2025-08-13T10:39:49.572633Z"
+          }
+        ],
+        "cvssSources": [
+          {
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+            "assigner": "Snyk",
+            "severity": "medium",
+            "baseScore": 6.3,
+            "cvssVersion": "4.0",
+            "modificationTime": "2025-08-13T06:49:33.798421Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+            "assigner": "Snyk",
+            "severity": "low",
+            "baseScore": 3.7,
+            "cvssVersion": "3.1",
+            "modificationTime": "2025-08-13T06:49:33.798421Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+            "assigner": "Red Hat",
+            "severity": "medium",
+            "baseScore": 5.3,
+            "cvssVersion": "3.1",
+            "modificationTime": "2025-08-13T10:39:49.572633Z"
+          }
+        ],
+        "description": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling via the `ASN1ObjectIdentifier`. An attacker can cause excessive resource consumption by submitting specially crafted ASN.1 Object Identifiers, potentially leading to service disruption.\r\n\r\n**Note:** This issue only applies to applications which do consume unvetted, or otherwise unvalidated, ASN.1 encodings.\n## Remediation\nUpgrade `org.bouncycastle:bc-fips` to version 2.1.0 or higher.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/3790993df5d28f661a64439a8664343437ed3865)\n- [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902025%E2%80%908885)\n",
+        "epssDetails": {
+          "percentile": "0.19719",
+          "probability": "0.00063",
+          "modelVersion": "v2025.03.14"
+        },
+        "identifiers": {
+          "CVE": [
+            "CVE-2025-8885"
+          ],
+          "CWE": [
+            "CWE-770"
+          ],
+          "GHSA": [
+            "GHSA-67mf-3cr5-8w23"
+          ]
+        },
+        "packageName": "org.bouncycastle:bc-fips",
+        "proprietary": false,
+        "creationTime": "2025-08-13T06:39:01.724126Z",
+        "functions_new": [],
+        "alternativeIds": [],
+        "disclosureTime": "2025-08-12T09:40:42Z",
+        "exploitDetails": {
+          "sources": [],
+          "maturityLevels": [
+            {
+              "type": "secondary",
+              "level": "Not Defined",
+              "format": "CVSSv3"
+            },
+            {
+              "type": "primary",
+              "level": "Not Defined",
+              "format": "CVSSv4"
+            }
+          ]
+        },
+        "packageManager": "maven",
+        "mavenModuleName": {
+          "groupId": "org.bouncycastle",
+          "artifactId": "bc-fips"
+        },
+        "publicationTime": "2025-08-13T06:39:01.980239Z",
+        "severityBasedOn": "CVSS",
+        "modificationTime": "2025-08-13T10:39:49.572633Z",
+        "socialTrendAlert": false,
+        "packagePopularityRank": 99,
+        "from": [
+          "com.cloudbees.compliance.plugins:zap@2.6.6",
+          "com.cloudbees.compliance.plugins:service-impl@2.2.24",
+          "com.cloudbees.compliance.plugins:service-util@2.0.24",
+          "org.bouncycastle:bctls-fips@1.0.19",
+          "org.bouncycastle:bc-fips@1.0.2.6"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "isPinnable": false,
+        "isRuntime": false,
+        "name": "org.bouncycastle:bc-fips",
+        "version": "1.0.2.6",
+        "severityWithCritical": "medium"
+      },
+      {
+        "id": "SNYK-JAVA-ORGBOUNCYCASTLE-11789688",
+        "title": "Allocation of Resources Without Limits or Throttling",
+        "CVSSv3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+        "credit": [
+          "Unknown"
+        ],
+        "semver": {
+          "vulnerable": [
+            "[1.74,1.79)"
+          ]
+        },
+        "exploit": "Not Defined",
+        "fixedIn": [
+          "1.79"
+        ],
+        "patches": [],
+        "insights": {
+          "triageAdvice": null
+        },
+        "language": "java",
+        "severity": "medium",
+        "cvssScore": 6.3,
+        "functions": [],
+        "malicious": false,
+        "isDisputed": false,
+        "moduleName": "org.bouncycastle:bcpkix-jdk18on",
+        "references": [
+          {
+            "url": "https://github.com/bcgit/bc-java/commit/310b30a4fbf36d13f6cc201ffa7771715641e67e",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/bcgit/bc-java/commit/ff444a479942d88de64004dc82c3ee32a9e9075a",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902025%E2%80%908916",
+            "title": "GitHub Wiki"
+          }
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "Red Hat",
+            "severity": "medium",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+            "cvssV3BaseScore": 5.3,
+            "modificationTime": "2025-08-14T05:59:40.160213Z"
+          }
+        ],
+        "cvssSources": [
+          {
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+            "assigner": "Snyk",
+            "severity": "medium",
+            "baseScore": 6.3,
+            "cvssVersion": "4.0",
+            "modificationTime": "2025-08-13T14:36:27.856452Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+            "assigner": "Snyk",
+            "severity": "low",
+            "baseScore": 3.7,
+            "cvssVersion": "3.1",
+            "modificationTime": "2025-08-13T14:36:27.856452Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+            "assigner": "Red Hat",
+            "severity": "medium",
+            "baseScore": 5.3,
+            "cvssVersion": "3.1",
+            "modificationTime": "2025-08-14T05:59:40.160213Z"
+          }
+        ],
+        "description": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling due to improper processing of large name constraint structures in `PKIXCertPathReviewer`. An attacker can cause excessive resource allocation by submitting specially crafted ASN.1 objects, potentially leading to service disruption. \r\n\r\n## Workaround\r\n\r\nThis vulnerability can be mitigated by limiting the size of ASN.1 objects that can be loaded from untrusted sources, thereby capping the maximum size of a Name Constraints structure.\n## Remediation\nUpgrade `org.bouncycastle:bcpkix-jdk18on` to version 1.79 or higher.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/310b30a4fbf36d13f6cc201ffa7771715641e67e)\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/ff444a479942d88de64004dc82c3ee32a9e9075a)\n- [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902025%E2%80%908916)\n",
+        "epssDetails": {
+          "percentile": "0.19719",
+          "probability": "0.00063",
+          "modelVersion": "v2025.03.14"
+        },
+        "identifiers": {
+          "CVE": [
+            "CVE-2025-8916"
+          ],
+          "CWE": [
+            "CWE-770"
+          ]
+        },
+        "packageName": "org.bouncycastle:bcpkix-jdk18on",
+        "proprietary": false,
+        "creationTime": "2025-08-13T13:44:52.705293Z",
+        "functions_new": [],
+        "alternativeIds": [],
+        "disclosureTime": "2025-08-13T09:52:08Z",
+        "exploitDetails": {
+          "sources": [],
+          "maturityLevels": [
+            {
+              "type": "secondary",
+              "level": "Not Defined",
+              "format": "CVSSv3"
+            },
+            {
+              "type": "primary",
+              "level": "Not Defined",
+              "format": "CVSSv4"
+            }
+          ]
+        },
+        "packageManager": "maven",
+        "mavenModuleName": {
+          "groupId": "org.bouncycastle",
+          "artifactId": "bcpkix-jdk18on"
+        },
+        "publicationTime": "2025-08-13T14:36:27.846983Z",
+        "severityBasedOn": "CVSS",
+        "modificationTime": "2025-08-14T05:59:40.160213Z",
+        "socialTrendAlert": false,
+        "packagePopularityRank": 99,
+        "from": [
+          "com.cloudbees.compliance.plugins:zap@2.6.6",
+          "com.cloudbees.compliance.plugins:service-impl@2.2.24",
+          "org.bouncycastle:bcpkix-jdk18on@1.78.1"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "isPinnable": false,
+        "isRuntime": false,
+        "name": "org.bouncycastle:bcpkix-jdk18on",
+        "version": "1.78.1",
+        "severityWithCritical": "medium"
+      },
+      {
+        "id": "SNYK-JAVA-ORGBOUNCYCASTLE-11789695",
+        "title": "Allocation of Resources Without Limits or Throttling",
+        "CVSSv3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+        "credit": [
+          "Unknown"
+        ],
+        "semver": {
+          "vulnerable": [
+            "[,1.79)"
+          ]
+        },
+        "exploit": "Not Defined",
+        "fixedIn": [
+          "1.79"
+        ],
+        "patches": [],
+        "insights": {
+          "triageAdvice": null
+        },
+        "language": "java",
+        "severity": "medium",
+        "cvssScore": 6.3,
+        "functions": [],
+        "malicious": false,
+        "isDisputed": false,
+        "moduleName": "org.bouncycastle:bcprov-jdk18on",
+        "references": [
+          {
+            "url": "https://github.com/bcgit/bc-java/commit/310b30a4fbf36d13f6cc201ffa7771715641e67e",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/bcgit/bc-java/commit/ff444a479942d88de64004dc82c3ee32a9e9075a",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902025%E2%80%908916",
+            "title": "GitHub Wiki"
+          }
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "Red Hat",
+            "severity": "medium",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+            "cvssV3BaseScore": 5.3,
+            "modificationTime": "2025-08-14T05:59:40.160213Z"
+          }
+        ],
+        "cvssSources": [
+          {
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+            "assigner": "Snyk",
+            "severity": "medium",
+            "baseScore": 6.3,
+            "cvssVersion": "4.0",
+            "modificationTime": "2025-08-13T14:36:30.027214Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+            "assigner": "Snyk",
+            "severity": "low",
+            "baseScore": 3.7,
+            "cvssVersion": "3.1",
+            "modificationTime": "2025-08-13T14:36:30.027214Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+            "assigner": "Red Hat",
+            "severity": "medium",
+            "baseScore": 5.3,
+            "cvssVersion": "3.1",
+            "modificationTime": "2025-08-14T05:59:40.160213Z"
+          }
+        ],
+        "description": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling due to improper processing of large name constraint structures in `PKIXCertPathReviewer`. An attacker can cause excessive resource allocation by submitting specially crafted ASN.1 objects, potentially leading to service disruption. \r\n\r\n## Workaround\r\n\r\nThis vulnerability can be mitigated by limiting the size of ASN.1 objects that can be loaded from untrusted sources, thereby capping the maximum size of a Name Constraints structure.\n## Remediation\nUpgrade `org.bouncycastle:bcprov-jdk18on` to version 1.79 or higher.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/310b30a4fbf36d13f6cc201ffa7771715641e67e)\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/ff444a479942d88de64004dc82c3ee32a9e9075a)\n- [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE%E2%80%902025%E2%80%908916)\n",
+        "epssDetails": {
+          "percentile": "0.19719",
+          "probability": "0.00063",
+          "modelVersion": "v2025.03.14"
+        },
+        "identifiers": {
+          "CVE": [
+            "CVE-2025-8916"
+          ],
+          "CWE": [
+            "CWE-770"
+          ]
+        },
+        "packageName": "org.bouncycastle:bcprov-jdk18on",
+        "proprietary": false,
+        "creationTime": "2025-08-13T13:44:55.865664Z",
+        "functions_new": [],
+        "alternativeIds": [],
+        "disclosureTime": "2025-08-13T09:52:08Z",
+        "exploitDetails": {
+          "sources": [],
+          "maturityLevels": [
+            {
+              "type": "secondary",
+              "level": "Not Defined",
+              "format": "CVSSv3"
+            },
+            {
+              "type": "primary",
+              "level": "Not Defined",
+              "format": "CVSSv4"
+            }
+          ]
+        },
+        "packageManager": "maven",
+        "mavenModuleName": {
+          "groupId": "org.bouncycastle",
+          "artifactId": "bcprov-jdk18on"
+        },
+        "publicationTime": "2025-08-13T14:36:30.018359Z",
+        "severityBasedOn": "CVSS",
+        "modificationTime": "2025-08-14T05:59:40.160213Z",
+        "socialTrendAlert": false,
+        "packagePopularityRank": 99,
+        "from": [
+          "com.cloudbees.compliance.plugins:zap@2.6.6",
+          "com.cloudbees.compliance.plugins:service-impl@2.2.24",
+          "org.bouncycastle:bcprov-jdk18on@1.78.1"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "isPinnable": false,
+        "isRuntime": false,
+        "name": "org.bouncycastle:bcprov-jdk18on",
+        "version": "1.78.1",
+        "severityWithCritical": "medium"
+      },
+      {
+        "id": "snyk:lic:maven:ch.qos.logback:logback-classic:(EPL-1.0_OR_LGPL-2.1)",
+        "type": "license",
+        "title": "Dual license: EPL-1.0, LGPL-2.1",
+        "semver": {
+          "vulnerable": [
+            "[0.9.18,)"
+          ]
+        },
+        "license": "(EPL-1.0 OR LGPL-2.1)",
+        "language": "java",
+        "description": "Dual license: EPL-1.0, LGPL-2.1",
+        "packageName": "ch.qos.logback:logback-classic",
+        "creationTime": "2025-03-09T17:47:17.961Z",
+        "packageManager": "maven",
+        "publicationTime": "2025-03-09T17:47:17.961Z",
+        "severity": "medium",
+        "from": [
+          "com.cloudbees.compliance.plugins:zap@2.6.6",
+          "org.springframework.boot:spring-boot-starter@3.5.5",
+          "org.springframework.boot:spring-boot-starter-logging@3.5.5",
+          "ch.qos.logback:logback-classic@1.5.18"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "isPinnable": false,
+        "isRuntime": false,
+        "name": "ch.qos.logback:logback-classic",
+        "version": "1.5.18",
+        "severityWithCritical": "medium"
+      }
+    ],
+    "upgrade": {
+      "org.apache.tomcat.embed:tomcat-embed-core@11.0.10": {
+        "upgradeTo": "org.apache.tomcat.embed:tomcat-embed-core@11.0.12",
+        "upgrades": [
+          "org.apache.tomcat.embed:tomcat-embed-core@11.0.10",
+          "org.apache.tomcat.embed:tomcat-embed-core@11.0.10"
+        ],
+        "vulns": [
+          "SNYK-JAVA-ORGAPACHETOMCATEMBED-13723930",
+          "SNYK-JAVA-ORGAPACHETOMCATEMBED-13733966"
+        ]
+      },
+      "org.springframework.boot:spring-boot-starter@3.5.5": {
+        "upgradeTo": "org.springframework.boot:spring-boot-starter@3.5.7",
+        "upgrades": [
+          "ch.qos.logback:logback-core@1.5.18"
+        ],
+        "vulns": [
+          "SNYK-JAVA-CHQOSLOGBACK-13169722"
+        ]
+      }
+    },
+    "patch": {},
+    "ignore": {},
+    "pin": {}
+  },
+  "filesystemPolicy": false,
+  "filtered": {
+    "ignore": [],
+    "patch": []
+  },
+  "uniqueCount": 10,
+  "projectName": "com.cloudbees.compliance.plugins:zap",
+  "displayTargetFile": "pom.xml",
+  "hasUnknownVersions": false,
+  "path": "/Users/lprabhakaran/workspace/plugins/compliance-hub-plugin-zap"
+}

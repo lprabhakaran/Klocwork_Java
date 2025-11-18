@@ -1,0 +1,22 @@
+{
+				"authType" : "API",
+				"contextAvailable": true,
+				"scanType": "API",
+				"discoveryTool": "JSON",
+				"swaggerURL": "",
+				"apiJSON" : "{\"test\":\"data\"}",
+				"authenticationType": "Basic",
+				"authenticationKey": "admin",
+					"authenticationValue": "admin",
+					"headers": [{
+						"headerKey": "type",
+						"headerValue": "application/json"
+					}, {
+						"headerKey": "accept-headers",
+						"headerValue": "*"
+					}, {
+						"headerKey": "allowed-methods",
+						"headerValue": "POST, PUT"
+					}]
+					
+				}

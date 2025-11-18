@@ -1,0 +1,105 @@
+spring:
+  profiles:
+    active: dev
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+      
+manifest:
+  uuid: 3a05fb03-5fd6-4e25-b551-9578966cb979
+  name: plugin-zap
+  version: test
+  assetRoles:
+    - role: ANALYSER
+      assetType: CORE
+      requiresAssets: true
+      createsAttributes: true
+      createsBinaryAttributes: false
+      createSubAttributes: owaspzap_context
+zap:      
+  server:
+    #address: zapserver.demo.cbc.beescloud.com
+    #port: 8084
+    #token: cbcdevoi8nbse1ntar8m42tj4r6v78
+    scriptEngine: ECMAScript - Graal.js
+    scriptEngineAddOnId: graaljs
+    #like D:\\User\\user\\Downloads\\auth0-auth.js (windows)
+    #like //home//user//zap//auth0-auth.js (linux)
+    filePathName: auth0-auth.js
+    resource:
+      url: $hostName$/JSON
+      viewContextList : /context/view/contextList
+      loadScriptEndpoint: /script/action/load/?fileName=auth0-auth.js&scriptType=authentication&scriptName=auth0-auth.js&scriptEngine={scriptEngine}&
+      addOnScriptEndpoint : /autoupdate/action/installAddon/?id={addOnId}&
+      createNewContextEndpoint : /context/action/newContext/?contextName={contextName}&
+      includeInContextEndpoint : /context/action/includeInContext/?contextName={contextName}&regex={regex}&
+      excludeInContextEndpoint : /context/action/excludeFromContext/?contextName={contextName}&regex={regex}&
+      runSpiderNoAuth : /spider/action/scan/?contextName={contextName}&recurse={recurse}&subtreeOnly={subtreeOnly}&url={url}&maxChildren={maxChildren}&
+      spiderScanGetStatus : /spider/view/status/?&scanId={scanId}&
+      spiderScanResults : /spider/view/results/?scanId={scanId}&
+      activeScanNoAuth  : /ascan/action/scan/?contextId={contextId}&url={url}&maxChildren={maxChildren}&
+      activeScanStatus : /ascan/view/status/?scanId={scanId}&     
+      viewContext : /context/view/context/?contextName={contextName}&
+      removeContext : /context/action/removeContext/?contextName={contextName}&
+      setAuthenticationMethod : /authentication/action/setAuthenticationMethod/?
+      setLoggedOutIndicator : /authentication/action/setLoggedOutIndicator/?loggedOutIndicatorRegex={logoutRegex}&contextId={contextId}&
+      setLoggedInIndicator : /authentication/action/setLoggedInIndicator/?loggedInIndicatorRegex={loginRegex}&contextId={contextId}&
+      createNewUser : /users/action/newUser/?name={username}&contextId={contextId}&
+      setAuthenticationCredentials : /users/action/setAuthenticationCredentials/?
+      setUserEnabled : /users/action/setUserEnabled/?contextId={contextId}&userId={userId}&enabled=true&
+      forcedUserEndpoint :  /forcedUser/action/setForcedUser/?contextId={contextId}&userId={userId}&
+      setForcedUserModeEnabled : /forcedUser/action/setForcedUserModeEnabled/?boolean=true&
+      getUserById : /users/view/getUserById/?contextId={contextId}&userId={userId}&
+      authenticateAsUser : /users/action/authenticateAsUser/?contextId={contextId}&userId={userId}&
+      scanAsUserSpider : /spider/action/scanAsUser/?recurse={recurse}&subtreeOnly={subtreeOnly}&contextId={contextId}&userId={userId}&url={url}&maxChildren={maxChildren}&
+      activeScanAsUser : /ascan/action/scanAsUser/?recurse=0&contextId={contextId}&userId={userId}&url={url}&maxChildren={maxChildren}&
+      getAuthenticationMethod : /authentication/view/getAuthenticationMethod/?contextId={contextId}&
+      openAPIUrl: /openapi/action/importUrl/
+      openAPIJsonUrl: /openapi/action/importFile/
+      deleteSiteNodes: /core/action/deleteSiteNode
+      setScriptVars: /script/action/setGlobalVar/
+      clearGlobalVars: /script/action/clearGlobalVars/
+      deleteAllAlerts: /core/action/deleteAllAlerts
+    writeToFileUrl: $hostName$/writeFile
+    deleteFileUrl: $hostName$/deleteFile/{fileName}
+    healthzUrl:  $hostName$/healthz
+    generateReport : $hostName$/other/core/other/jsonreport/?&contextName={contextName}& 
+    fileManager:
+      port: 5002
+      
+  config:
+    heartbeatrate: 30
+    spiderScan:
+       # 0 is unlimited
+       maxchildren: 0
+       recurse: true
+       subtreeonly: false
+    activeScan:
+       # 0 is unlimited
+       maxchildren: 0
+    
+   
+resilience4j.retry:
+    instances:
+        spiderScan:
+            maxAttempts: 10
+            waitDuration: 30s
+            retryExceptions:
+                - com.cloudbees.compliance.plugins.zap.exception.ScanNotCompletedException
+        activeScan:
+            maxAttempts: 10
+            waitDuration: 30s
+            retryExceptions:
+                - com.cloudbees.compliance.plugins.zap.exception.ScanNotCompletedException
+grpc:
+  netty-server:    
+    max-inbound-message-size: 300000000
+  port: 5001
+  
+throttleconfig:
+       poolSize: 1
+secretmanager:
+  enabled: true
+                

@@ -1,0 +1,35 @@
+{
+ "excludeFromContextRegexes": [
+  "https://accounts.google.com/o/oauth2/auth.*",
+  "https://cbcdev.eu.auth0.com/u/reset-password.*",
+  "https://cbcdev.eu.auth0.com/u/signup.*",
+  "https://cbcdev.eu.auth0.com/v2/logout",
+  "https://login.microsoftonline.com/consumers/oauth2/v2.0/authorize.*",
+  "https://login.microsoftonline.com.*"
+ ],
+ "redirectURI": "https://www.dev.cbc.beescloud.com/",
+ "loggedInIndicator": "",
+ "includeInContextRegexes": [
+  "https://www.dev.cbc.beescloud.com.*",
+  "https://cbcdev.eu.auth0.com.*"
+ ],
+ "credentials": {
+  "password": "P@ssw0rd",
+  "userNameFormFieldName": "username",
+  "passwordFormFieldName": "password",
+  "username": "c_snerake@cloudbees.com"
+ },
+ "paths": [
+  "/organisations",
+  "/organisations/829b3307-dd8c-11ec-8f97-3679caf7d677/applications",
+  "/api/backend/compliance-engine/accounts/new/validate"
+ ],
+ "loginHostname": "https://cbcdev.eu.auth0.com",
+ "loggedOutIndicator": "\\bLog in to cbcdev to continue to Platform UI\\b",
+ "firstGetURI": "/u/login",
+ "env": "Development",
+ "authType": "Auth0",
+ "url": "https://www.dev.cbc.beescloud.com/",
+ "contextAvailable": true
+ 
+}

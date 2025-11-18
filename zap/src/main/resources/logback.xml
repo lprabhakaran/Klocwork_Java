@@ -1,0 +1,40 @@
+<configuration>
+	<property name="LOG_FILE" value="zap-analyser" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%replace([Req=%X{CORRELATION_ID}] ){'\[Req=\] ', ''}%replace([Trace=%X{TRACE_ID}] ){'\[Trace=\] ', ''}%replace([User=%X{USER_ID}] ){'\[User=\] ', ''}%replace([Session=%X{SESSION_ID}] ){'\[Session=\] ', ''}%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE-ROLLING"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/${LOG_FILE}.log</file>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/${LOG_FILE}.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<!-- each archived file, size max 10MB -->
+			<maxFileSize>10MB</maxFileSize>
+			<!-- total size of all archive files, if total size > 100MB, it will delete 
+				old archived file -->
+			<totalSizeCap>100MB</totalSizeCap>
+			<!-- 7 days to keep -->
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%replace([Req=%X{CORRELATION_ID}] ){'\[Req=\] ', ''}%replace([Trace=%X{TRACE_ID}] ){'\[Trace=\] ', ''}%replace([Span=%X{SPAN_ID}] ){'\[Span=\] ', ''}%replace([User=%X{USER_ID}] ){'\[User=\] ', ''}%replace([Session=%X{SESSION_ID}] ){'\[Session=\] ', ''}%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com.cloudbees.compliance" level='${LOG_LEVEL}' 	additivity="true">
+		<appender-ref ref="FILE-ROLLING" />
+	</logger>
+	
+	<root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

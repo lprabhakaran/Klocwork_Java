@@ -1,0 +1,16 @@
+{
+    "excludeFromContextRegexes": ["http://localhost:8090/bodgeit/logout.jsp"],
+    "loginPageGetUrl": "http://localhost:8090/bodgeit/login.jsp",
+    "loggedInIndicator": "<a href=\"logout.jsp\"><\/a>",
+    "loginPageTargetUrl": "http://localhost:8090/bodgeit/login.jsp",
+    "includeInContextRegexes": ["http://localhost:8090/bodgeit.*"],
+    "credentials": {
+     "password": "weakPass1",
+     "userNameFormFieldName": "username",
+     "passwordFormFieldName": "password",
+     "username": "test@gmail.com"
+    },
+    "paths": ["/bodgeit"],
+    "loggedOutIndicator": "<a href=\"login.jsp\">Login<\/a>",
+    "authType": "UsernamePasswordAuth"
+}

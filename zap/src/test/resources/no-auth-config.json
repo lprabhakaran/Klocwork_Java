@@ -1,0 +1,25 @@
+{
+  "excludeFromContextRegexes": [
+    "https://accounts.google.com/o/oauth2/auth.*",
+    "https://cbcdemo.eu.auth0.com/u/reset-password.*",
+    "https://cbcdemo.eu.auth0.com/u/signup.*",
+    "https://cbcdemo.eu.auth0.com/v2/logout",
+    "https://login.microsoftonline.com/consumers/oauth2/v2.0/authorize.*",
+    "https://login.microsoftonline.com.*"
+  ],
+  "loggedInIndicator": null,
+  "includeInContextRegexes": [
+    "https://www.demo.cbc.beescloud.com.*",
+    "https://cbcdemo.eu.auth0.com.*"
+  ],
+  "credentials": null,
+  "paths": [
+    "/organisations/6f92f66d-2a87-11ed-8fac-ce95706853c8/manage/standards",
+    "/dashboard/6f92f66d-2a87-11ed-8fac-ce95706853c8"
+  ],
+  "loggedOutIndicator": null,
+  "env": "Development",
+  "authType": "NoAuth",
+  "url": "https://www.demo.cbc.beescloud.com",
+   "contextAvailable": false
+}
