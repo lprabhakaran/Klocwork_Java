@@ -15,9 +15,13 @@ jobs:
 
       - name: Create Maven Settings
         uses: docker://alpine:latest
+        env:
+          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+          NEXUS_REPO_URL: ${{ secrets.NEXUS_URL }}
         run: |
           mkdir -p .m2
-          cat > .m2/settings.xml << 'EOF'
+          cat > .m2/settings.xml << EOF
           <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
@@ -25,8 +29,8 @@ jobs:
             <servers>
               <server>
                 <id>nexus-download</id>
-                <username>${env.NEXUS_USERNAME}</username>
-                <password>${env.NEXUS_PASSWORD}</password>
+                <username>${NEXUS_USERNAME}</username>
+                <password>${NEXUS_PASSWORD}</password>
               </server>
             </servers>
             
@@ -40,13 +44,14 @@ jobs:
                   <repository>
                     <id>nexus-download</id>
                     <name>Internal Releases</name>
-                    <url>${env.NEXUS_REPO_URL}</url>
+                    <url>${NEXUS_REPO_URL}</url>
                   </repository>
                 </repositories>
               </profile>
             </profiles>
           </settings>
           EOF
+
           
           # Optional: Copy to home directory as well
           mkdir -p $HOME/.m2
