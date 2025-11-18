@@ -55,12 +55,13 @@ jobs:
           echo "Maven settings created successfully"
           ls -la .m2/
         
-      - name: Debug Maven Settings
-        uses: docker://alpine:latest
+      - name: Prepare Maven deps (go-offline)
+        uses: docker://maven:3.9.6-eclipse-temurin-17
+        env:
+          MAVEN_CONFIG: .m2
         run: |
-          echo "Checking effective Maven settings:"
-          ls -la .m2
-          cat .m2/settings.xml
+          echo "Running mvn dependency:go-offline..."
+          mvn -s .m2/settings.xml dependency:go-offline
 
 
       - name: Snyk SCA scan
