@@ -1,0 +1,21 @@
+name: test-snycsca-workflow
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+on:
+  workflow_dispatch:
+permissions:
+  scm-token-own: read
+  scm-token-org: read
+  id-token: write
+jobs:
+  build:
+    steps:
+      - name: checkout-source-code
+        uses: cloudbees-io/checkout@v1
+
+      - name: Snyk SCA scan
+        uses: cloudbees-io/snyk-sca-scan-dependency@v1
+        with:
+            orgname: ${{ vars.SNYK_ORG_NAME }}
+            token: ${{ secrets.SNYK_SECRET }}
+            language: LANGUAGE_JAVA
