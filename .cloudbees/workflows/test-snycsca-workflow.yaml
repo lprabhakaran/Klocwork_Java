@@ -61,7 +61,9 @@ jobs:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
           NEXUS_REPO_URL: ${{ secrets.NEXUS_URL }}
+          MAVEN_CONFIG: .m2        # <-- Makes Maven use your settings.xml
         with:
           orgname: ${{ vars.SNYK_ORG_NAME }}
           token: ${{ secrets.SNYK_SECRET }}
           language: LANGUAGE_JAVA
+
