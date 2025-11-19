@@ -86,19 +86,19 @@ jobs:
 
           echo "Maven setup and dependencies completed successfully"
 
-      - name: Configure Maven for Snyk
-        uses: docker://alpine:latest
+      - name: Test Maven Command for Snyk
+        uses: docker://maven:3.9.6-eclipse-temurin-17
         run: |
-          # Create maven.config to tell Maven to use workspace settings
-          mkdir -p .mvn
-          WORKSPACE_PATH=$(pwd)
-          echo "-s ${WORKSPACE_PATH}/.m2/settings.xml" > .mvn/maven.config
+          echo "Testing Maven dependency tree command that Snyk will use..."
 
-          echo "Maven config created for Snyk:"
-          cat .mvn/maven.config
+          # Copy settings to $HOME for this container
+          mkdir -p $HOME/.m2
+          cp .m2/settings.xml $HOME/.m2/settings.xml
 
-          echo "Verifying settings.xml exists:"
-          ls -la .m2/settings.xml
+          # Test the exact command Snyk will run
+          mvn -s .m2/settings.xml dependency:tree -DoutputType=dot --batch-mode --non-recursive --file="pom.xml"
+
+          echo "Maven dependency tree command works!"
 
       - name: Snyk SCA scan
         uses: cloudbees-io/snyk-sca-scan-dependency@v1
@@ -106,6 +106,7 @@ jobs:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
           NEXUS_REPO_URL: ${{ secrets.NEXUS_URL }}
+          MAVEN_CONFIG: .m2
         with:
           orgname: ${{ vars.SNYK_ORG_NAME }}
           token: ${{ secrets.SNYK_SECRET }}
