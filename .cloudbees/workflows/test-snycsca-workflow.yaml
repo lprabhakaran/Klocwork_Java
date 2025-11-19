@@ -7,6 +7,11 @@ permissions:
   scm-token-own: read
   scm-token-org: read
   id-token: write
+
+# Global environment variables for all steps
+env:
+  MAVEN_USER_HOME: /cloudbees/workspace/.m2
+
 jobs:
   build:
     steps:
@@ -20,10 +25,11 @@ jobs:
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
           NEXUS_REPO_URL: ${{ secrets.NEXUS_URL }}
         run: |
-          echo "Creating Maven settings.xml..."
+          echo "Creating Maven settings.xml in shared location..."
 
-          # Create in workspace first
+          # Create .m2 directory in workspace (shared across all containers)
           mkdir -p .m2
+
           cat > .m2/settings.xml << EOF
           <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -74,31 +80,13 @@ jobs:
           </settings>
           EOF
 
-          # Copy to home directory for Maven default location
-          mkdir -p $HOME/.m2
-          cp .m2/settings.xml $HOME/.m2/settings.xml
-
-          echo "Maven settings created successfully"
+          echo "Maven settings created successfully at $MAVEN_USER_HOME"
           ls -la .m2/
 
           echo "Running mvn dependency:go-offline..."
-          mvn -s .m2/settings.xml dependency:go-offline
+          mvn dependency:go-offline
 
           echo "Maven setup and dependencies completed successfully"
-
-      - name: Test Maven Command for Snyk
-        uses: docker://maven:3.9.6-eclipse-temurin-17
-        run: |
-          echo "Testing Maven dependency tree command that Snyk will use..."
-
-          # Copy settings to $HOME for this container
-          mkdir -p $HOME/.m2
-          cp .m2/settings.xml $HOME/.m2/settings.xml
-
-          # Test the exact command Snyk will run
-          mvn -s .m2/settings.xml dependency:tree -DoutputType=dot --batch-mode --non-recursive --file="pom.xml"
-
-          echo "Maven dependency tree command works!"
 
       - name: Snyk SCA scan
         uses: cloudbees-io/snyk-sca-scan-dependency@v1
