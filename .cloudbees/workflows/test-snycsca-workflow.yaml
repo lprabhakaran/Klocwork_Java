@@ -66,7 +66,7 @@ jobs:
           MAVEN_CONFIG: .m2
         run: |
           echo "Running mvn dependency:go-offline..."
-          mvn -s .m2/settings.xml dependency:go-offline
+          mvn -s $HOME/.m2/settings.xml dependency:go-offline
 
 
       - name: Snyk SCA scan
