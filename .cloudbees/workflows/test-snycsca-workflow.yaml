@@ -13,15 +13,16 @@ jobs:
       - name: checkout-source-code
         uses: cloudbees-io/checkout@v1
 
-      - name: Create Maven Settings
-        uses: docker://alpine:latest
+      - name: Setup Maven and Prepare Dependencies
+        uses: docker://maven:3.9.6-eclipse-temurin-17
         env:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
           NEXUS_REPO_URL: ${{ secrets.NEXUS_URL }}
         run: |
-          mkdir -p .m2
-          cat > .m2/settings.xml << EOF
+          echo "Creating Maven settings.xml..."
+          mkdir -p $HOME/.m2
+          cat > $HOME/.m2/settings.xml << EOF
           <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
@@ -29,8 +30,8 @@ jobs:
             <servers>
               <server>
                 <id>nexus-download</id>
-                <username>${{ secrets.NEXUS_USERNAME }}</username>
-                <password>${{ secrets.NEXUS_PASSWORD }}</password>
+                <username>${NEXUS_USERNAME}</username>
+                <password>${NEXUS_PASSWORD}</password>
               </server>
             </servers>
 
@@ -44,7 +45,7 @@ jobs:
                   <repository>
                     <id>nexus-download</id>
                     <name>Internal Releases</name>
-                    <url>${{ secrets.NEXUS_URL }}</url>
+                    <url>${NEXUS_REPO_URL}</url>
                   </repository>
                 </repositories>
               </profile>
@@ -53,17 +54,16 @@ jobs:
           EOF
 
           echo "Maven settings created successfully"
-          ls -la .m2/
+          ls -la $HOME/.m2/
 
-      - name: Prepare Maven deps (go-offline)
-        uses: docker://maven:3.9.6-eclipse-temurin-17
-        run: |
-          # Copy settings to this container's $HOME for Maven
-          mkdir -p $HOME/.m2
-          cp .m2/settings.xml $HOME/.m2/settings.xml
+          # Also save to workspace for Snyk step
+          mkdir -p .m2
+          cp $HOME/.m2/settings.xml .m2/settings.xml
 
           echo "Running mvn dependency:go-offline..."
           mvn dependency:go-offline
+
+          echo "Maven dependencies downloaded successfully"
 
       - name: Snyk SCA scan
         uses: cloudbees-io/snyk-sca-scan-dependency@v1
