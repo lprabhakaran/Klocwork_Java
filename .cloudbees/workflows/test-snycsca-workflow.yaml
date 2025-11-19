@@ -8,10 +8,6 @@ permissions:
   scm-token-org: read
   id-token: write
 
-# Global environment variables for all steps
-env:
-  MAVEN_USER_HOME: /cloudbees/workspace/.m2
-
 jobs:
   build:
     steps:
@@ -25,7 +21,7 @@ jobs:
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
           NEXUS_REPO_URL: ${{ secrets.NEXUS_URL }}
         run: |
-          echo "Creating Maven settings.xml in shared location..."
+          echo "Creating Maven settings.xml in workspace..."
 
           # Create .m2 directory in workspace (shared across all containers)
           mkdir -p .m2
@@ -80,8 +76,15 @@ jobs:
           </settings>
           EOF
 
-          echo "Maven settings created successfully at $MAVEN_USER_HOME"
+          echo "Maven settings created successfully"
           ls -la .m2/
+
+          # Create .mvn/maven.config with settings location
+          mkdir -p .mvn
+          echo "-s /cloudbees/workspace/.m2/settings.xml" > .mvn/maven.config
+
+          echo "Maven config created:"
+          cat .mvn/maven.config
 
           echo "Running mvn dependency:go-offline..."
           mvn dependency:go-offline
@@ -95,6 +98,8 @@ jobs:
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
           NEXUS_REPO_URL: ${{ secrets.NEXUS_URL }}
           MAVEN_CONFIG: .m2
+          MAVEN_USER_HOME: /cloudbees/workspace/.m2
+          MAVEN_OPTS: "-s /cloudbees/workspace/.m2/settings.xml"
         with:
           orgname: ${{ vars.SNYK_ORG_NAME }}
           token: ${{ secrets.SNYK_SECRET }}
