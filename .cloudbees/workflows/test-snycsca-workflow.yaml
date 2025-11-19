@@ -79,17 +79,23 @@ jobs:
           echo "Maven settings created successfully"
           ls -la .m2/
 
-          # Create .mvn/maven.config with settings location
+          echo "Running mvn dependency:go-offline..."
+          mvn -s .m2/settings.xml dependency:go-offline
+
+          echo "Maven setup and dependencies completed successfully"
+
+      - name: Create Maven Config for Snyk
+        uses: docker://alpine:latest
+        run: |
+          # Create .mvn/maven.config with relative path
           mkdir -p .mvn
-          echo "-s /cloudbees/workspace/.m2/settings.xml" > .mvn/maven.config
+          echo "-s .m2/settings.xml" > .mvn/maven.config
 
           echo "Maven config created:"
           cat .mvn/maven.config
 
-          echo "Running mvn dependency:go-offline..."
-          mvn dependency:go-offline
-
-          echo "Maven setup and dependencies completed successfully"
+          echo "Verifying settings.xml exists:"
+          ls -la .m2/settings.xml
 
       - name: Snyk SCA scan
         uses: cloudbees-io/snyk-sca-scan-dependency@v1
@@ -98,8 +104,6 @@ jobs:
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
           NEXUS_REPO_URL: ${{ secrets.NEXUS_URL }}
           MAVEN_CONFIG: .m2
-          MAVEN_USER_HOME: /cloudbees/workspace/.m2
-          MAVEN_OPTS: "-s /cloudbees/workspace/.m2/settings.xml"
         with:
           orgname: ${{ vars.SNYK_ORG_NAME }}
           token: ${{ secrets.SNYK_SECRET }}
