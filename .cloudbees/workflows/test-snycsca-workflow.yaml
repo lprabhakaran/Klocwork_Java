@@ -33,7 +33,7 @@ jobs:
                 <password>${NEXUS_PASSWORD}</password>
               </server>
             </servers>
-            
+
             <profiles>
               <profile>
                 <id>nexus</id>
@@ -52,22 +52,18 @@ jobs:
           </settings>
           EOF
 
-          
-          # Optional: Copy to home directory as well
-          mkdir -p $HOME/.m2
-          cp .m2/settings.xml $HOME/.m2/settings.xml
-          
           echo "Maven settings created successfully"
           ls -la .m2/
-        
+
       - name: Prepare Maven deps (go-offline)
         uses: docker://maven:3.9.6-eclipse-temurin-17
-        env:
-          MAVEN_CONFIG: .m2
         run: |
-          echo "Running mvn dependency:go-offline..."
-          mvn -s $HOME/.m2/settings.xml dependency:go-offline
+          # Copy settings to this container's $HOME for Maven
+          mkdir -p $HOME/.m2
+          cp .m2/settings.xml $HOME/.m2/settings.xml
 
+          echo "Running mvn dependency:go-offline..."
+          mvn dependency:go-offline
 
       - name: Snyk SCA scan
         uses: cloudbees-io/snyk-sca-scan-dependency@v1
@@ -75,9 +71,7 @@ jobs:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
           NEXUS_REPO_URL: ${{ secrets.NEXUS_URL }}
-          MAVEN_CONFIG: .m2        # <-- Makes Maven use your settings.xml
         with:
           orgname: ${{ vars.SNYK_ORG_NAME }}
           token: ${{ secrets.SNYK_SECRET }}
           language: LANGUAGE_JAVA
-
