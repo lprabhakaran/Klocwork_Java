@@ -21,8 +21,10 @@ jobs:
           NEXUS_REPO_URL: ${{ secrets.NEXUS_URL }}
         run: |
           echo "Creating Maven settings.xml..."
-          mkdir -p $HOME/.m2
-          cat > $HOME/.m2/settings.xml << EOF
+
+          # Create in workspace first
+          mkdir -p .m2
+          cat > .m2/settings.xml << EOF
           <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
@@ -53,16 +55,12 @@ jobs:
           </settings>
           EOF
 
+          # Copy to home directory for Maven default location
+          mkdir -p $HOME/.m2
+          cp .m2/settings.xml $HOME/.m2/settings.xml
+
           echo "Maven settings created successfully"
-          ls -la $HOME/.m2/
-
-          # Also save to workspace for Snyk
-          mkdir -p .m2
-          cp $HOME/.m2/settings.xml .m2/settings.xml
-
-          # Create maven.config to ensure any Maven invocation uses our settings
-          mkdir -p .mvn
-          echo "-s .m2/settings.xml" > .mvn/maven.config
+          ls -la .m2/
 
           echo "Running mvn dependency:go-offline..."
           mvn dependency:go-offline
@@ -75,6 +73,7 @@ jobs:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
           NEXUS_REPO_URL: ${{ secrets.NEXUS_URL }}
+          MAVEN_CONFIG: .m2
         with:
           orgname: ${{ vars.SNYK_ORG_NAME }}
           token: ${{ secrets.SNYK_SECRET }}
