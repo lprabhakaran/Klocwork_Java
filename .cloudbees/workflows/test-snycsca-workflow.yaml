@@ -55,11 +55,17 @@ jobs:
           echo "Maven settings created successfully"
           ls -la .m2/
 
+          # Create Maven config to use our custom settings location
+          mkdir -p .mvn
+          echo "-s .m2/settings.xml" > .mvn/maven.config
+          echo "Maven config created"
+          cat .mvn/maven.config
+
       - name: Prepare Maven deps (go-offline)
         uses: docker://maven:3.9.6-eclipse-temurin-17
         run: |
           echo "Running mvn dependency:go-offline..."
-          mvn -s .m2/settings.xml dependency:go-offline
+          mvn dependency:go-offline
 
       - name: Snyk SCA scan
         uses: cloudbees-io/snyk-sca-scan-dependency@v1
@@ -71,4 +77,3 @@ jobs:
           orgname: ${{ vars.SNYK_ORG_NAME }}
           token: ${{ secrets.SNYK_SECRET }}
           language: LANGUAGE_JAVA
-          args: --maven-settings-file=.m2/settings.xml
