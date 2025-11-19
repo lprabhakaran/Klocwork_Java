@@ -48,8 +48,27 @@ jobs:
                     <id>nexus-download</id>
                     <name>Internal Releases</name>
                     <url>${NEXUS_REPO_URL}</url>
+                    <releases>
+                      <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                      <enabled>true</enabled>
+                    </snapshots>
                   </repository>
                 </repositories>
+                <pluginRepositories>
+                  <pluginRepository>
+                    <id>nexus-download</id>
+                    <name>Internal Releases</name>
+                    <url>${NEXUS_REPO_URL}</url>
+                    <releases>
+                      <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                      <enabled>true</enabled>
+                    </snapshots>
+                  </pluginRepository>
+                </pluginRepositories>
               </profile>
             </profiles>
           </settings>
@@ -63,7 +82,7 @@ jobs:
           ls -la .m2/
 
           echo "Running mvn dependency:go-offline..."
-          mvn dependency:go-offline
+          mvn -s .m2/settings.xml dependency:go-offline
 
           echo "Maven setup and dependencies completed successfully"
 
