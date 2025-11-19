@@ -86,13 +86,26 @@ jobs:
 
           echo "Maven setup and dependencies completed successfully"
 
+      - name: Configure Maven for Snyk
+        uses: docker://alpine:latest
+        run: |
+          # Create maven.config to tell Maven to use workspace settings
+          mkdir -p .mvn
+          WORKSPACE_PATH=$(pwd)
+          echo "-s ${WORKSPACE_PATH}/.m2/settings.xml" > .mvn/maven.config
+
+          echo "Maven config created for Snyk:"
+          cat .mvn/maven.config
+
+          echo "Verifying settings.xml exists:"
+          ls -la .m2/settings.xml
+
       - name: Snyk SCA scan
         uses: cloudbees-io/snyk-sca-scan-dependency@v1
         env:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
           NEXUS_REPO_URL: ${{ secrets.NEXUS_URL }}
-          MAVEN_CONFIG: .m2
         with:
           orgname: ${{ vars.SNYK_ORG_NAME }}
           token: ${{ secrets.SNYK_SECRET }}
