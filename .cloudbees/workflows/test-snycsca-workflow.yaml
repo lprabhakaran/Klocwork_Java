@@ -29,8 +29,8 @@ jobs:
             <servers>
               <server>
                 <id>nexus-download</id>
-                <username>${NEXUS_USERNAME}</username>
-                <password>${NEXUS_PASSWORD}</password>
+                <username>${{ secrets.NEXUS_USERNAME }}</username>
+                <password>${{ secrets.NEXUS_PASSWORD }}</password>
               </server>
             </servers>
 
@@ -44,7 +44,7 @@ jobs:
                   <repository>
                     <id>nexus-download</id>
                     <name>Internal Releases</name>
-                    <url>${NEXUS_REPO_URL}</url>
+                    <url>${{ secrets.NEXUS_URL }}</url>
                   </repository>
                 </repositories>
               </profile>
