@@ -13,16 +13,15 @@ jobs:
       - name: checkout-source-code
         uses: cloudbees-io/checkout@v1
 
-      - name: Setup Maven and Prepare Dependencies
-        uses: docker://maven:3.9.6-eclipse-temurin-17
+      - name: Create Maven Settings
+        uses: docker://alpine:latest
         env:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
           NEXUS_REPO_URL: ${{ secrets.NEXUS_URL }}
         run: |
-          echo "Creating Maven settings.xml..."
-          mkdir -p $HOME/.m2
-          cat > $HOME/.m2/settings.xml << EOF
+          mkdir -p .m2
+          cat > .m2/settings.xml << EOF
           <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
@@ -34,7 +33,7 @@ jobs:
                 <password>${NEXUS_PASSWORD}</password>
               </server>
             </servers>
-
+            
             <profiles>
               <profile>
                 <id>nexus</id>
@@ -53,17 +52,22 @@ jobs:
           </settings>
           EOF
 
+          
+          # Optional: Copy to home directory as well
+          mkdir -p $HOME/.m2
+          cp .m2/settings.xml $HOME/.m2/settings.xml
+          
           echo "Maven settings created successfully"
-          ls -la $HOME/.m2/
-
-          # Also save to workspace for Snyk step
-          mkdir -p .m2
-          cp $HOME/.m2/settings.xml .m2/settings.xml
-
+          ls -la .m2/
+        
+      - name: Prepare Maven deps (go-offline)
+        uses: docker://maven:3.9.6-eclipse-temurin-17
+        env:
+          MAVEN_CONFIG: .m2
+        run: |
           echo "Running mvn dependency:go-offline..."
-          mvn dependency:go-offline
+          mvn -s .m2/settings.xml dependency:go-offline
 
-          echo "Maven dependencies downloaded successfully"
 
       - name: Snyk SCA scan
         uses: cloudbees-io/snyk-sca-scan-dependency@v1
@@ -71,6 +75,7 @@ jobs:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
           NEXUS_REPO_URL: ${{ secrets.NEXUS_URL }}
+          MAVEN_CONFIG: .m2        # <-- Makes Maven use your settings.xml
         with:
           orgname: ${{ vars.SNYK_ORG_NAME }}
           token: ${{ secrets.SNYK_SECRET }}
